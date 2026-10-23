@@ -44,6 +44,56 @@ header.top p {
   font-size: 0.95rem;
 }
 
+header.top h1.site-title {
+  font-size: 1.9rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  margin: 0 0 6px;
+}
+
+header.top .site-date {
+  font-weight: 700;
+  color: var(--brown);
+  font-size: 1rem;
+}
+
+header.top .site-address {
+  margin-top: 2px;
+  font-size: 0.85rem;
+}
+
+header.top .site-address a {
+  color: var(--brown-light);
+  text-decoration: none;
+}
+header.top .site-address a:hover { text-decoration: underline; }
+
+.countdown-banner {
+  background: var(--brown);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+  margin-bottom: 16px;
+  box-shadow: var(--card-shadow);
+}
+.countdown-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.cd-unit {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  padding: 8px 12px;
+  min-width: 56px;
+}
+.cd-unit.wide { min-width: 160px; padding: 10px 20px; }
+.cd-num { font-size: 1.6rem; font-weight: 800; line-height: 1; }
+.cd-lbl { font-size: 0.68rem; text-transform: uppercase; opacity: 0.85; margin-top: 2px; }
+.countdown-sub { font-size: 0.8rem; opacity: 0.85; margin-top: 10px; }
+
 .name-bar {
   background: var(--cream-dark);
   border-radius: var(--radius);
@@ -408,3 +458,15 @@ a { color: var(--orange-dark); }
   border-color: var(--green);
   color: #fff;
 }
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  margin: 10px 0 4px;
+}
+.checkbox-row input { width: auto; margin: 0; }
+
+button.btn.full-width { width: 100%; margin-top: 8px; }
