@@ -64,10 +64,12 @@
       "attending": "yes",
       "members": [
         "Greyson Shauck",
-        "Amanda Shauck"
+        "Amanda Shauck",
+        "Ani Shauck"
       ],
       "notes": "Gluten Free….",
-      "createdAt": "2026-10-23T17:01:23.723Z"
+      "createdAt": "2026-10-23T17:01:23.723Z",
+      "updatedAt": "2026-10-23T17:01:42.320Z"
     }
   ],
   "dishes": [
