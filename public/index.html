@@ -3,15 +3,23 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Thanksgiving Dinner Planner</title>
+<title>Hubbell Thanksgiving</title>
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 <div class="wrap">
   <header class="top">
-    <h1>🦃 Thanksgiving Dinner</h1>
-    <p>Let's plan the day together</p>
+    <h1 class="site-title">HUBBELL THANKSGIVING</h1>
+    <p class="site-date" id="eventDateLabel">Thursday, November 26, 2026</p>
+    <p class="site-address">
+      <a id="eventAddressLink" href="#" target="_blank" rel="noopener">📍 <span id="eventAddress">108 North 200th Street, Shoreline, WA 98133</span></a>
+    </p>
   </header>
+
+  <div class="countdown-banner" id="countdownBanner">
+    <div class="countdown-row" id="countdownRow"></div>
+    <div class="countdown-sub" id="countdownSub"></div>
+  </div>
 
   <div class="hero-banner">
     <div class="hero-num pulse" id="heroNum">0</div>
