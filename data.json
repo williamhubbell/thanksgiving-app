@@ -205,6 +205,15 @@
       "path": "photos/2.jpg",
       "url": "https://raw.githubusercontent.com/williamhubbell/thanksgiving-app/data/photos/2.jpg",
       "createdAt": "2026-10-23T15:40:17.721Z"
+    },
+    {
+      "id": 3,
+      "year": "Past Thanksgivings",
+      "caption": "",
+      "uploadedBy": "William Hubbell",
+      "path": "photos/3.jpg",
+      "url": "https://raw.githubusercontent.com/williamhubbell/thanksgiving-app/data/photos/3.jpg",
+      "createdAt": "2026-10-23T15:40:21.122Z"
     }
   ],
   "nextIds": {
@@ -212,6 +221,6 @@
     "dishes": 16,
     "gameCategories": 5,
     "gameSignups": 1,
-    "photos": 3
+    "photos": 4
   }
 }
