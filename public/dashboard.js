@@ -25,6 +25,7 @@
     renderFamilies();
     renderDishes();
     renderGames();
+    renderPhotos();
   }
 
   function renderEventForm() {
@@ -58,6 +59,7 @@
       <div class="summary-pill"><div class="num">${s.totalHeadcountYes || 0}</div><div class="lbl">Confirmed</div></div>
       <div class="summary-pill"><div class="num">${s.totalHeadcountMaybe || 0}</div><div class="lbl">Maybe</div></div>
       <div class="summary-pill"><div class="num">${state.dishes.filter((d) => !d.claimedBy).length}</div><div class="lbl">Open dishes</div></div>
+      <div class="summary-pill"><div class="num">${s.photosCount || 0}</div><div class="lbl">Photos</div></div>
     `;
   }
 
@@ -221,6 +223,36 @@
       </div>`
       )
       .join('');
+  }
+
+  async function deletePhoto(id) {
+    if (!confirm('Remove this photo for everyone?')) return;
+    try {
+      await api('DELETE', `/api/photos/${id}`);
+      toast('Photo removed');
+      refresh();
+    } catch (err) {
+      toast(err.message);
+    }
+  }
+  window.__deletePhoto = deletePhoto;
+
+  function renderPhotos() {
+    const photos = [...(state.photos || [])].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    document.getElementById('photoTable').innerHTML = photos.length
+      ? photos
+          .map(
+            (p) => `
+      <div class="list-item">
+        <div class="item-main">
+          <div class="item-title">${escapeHtml(p.year || 'Past Thanksgivings')}${p.caption ? ' — ' + escapeHtml(p.caption) : ''}</div>
+          <div class="item-sub">Added by ${escapeHtml(p.uploadedBy || 'Someone')} · <a href="${p.url}" target="_blank" rel="noopener">view full size</a></div>
+        </div>
+        <button class="btn small danger" onclick="__deletePhoto(${p.id})">✕</button>
+      </div>`
+          )
+          .join('')
+      : '<p class="hint">No photos uploaded yet.</p>';
   }
 
   function escapeHtml(str) {
