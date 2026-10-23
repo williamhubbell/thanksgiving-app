@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Thanksgiving Dinner Planner</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>🦃 Thanksgiving Dinner</h1>
+    <p>Let's plan the day together</p>
+  </header>
+
+  <div class="hero-banner">
+    <div class="hero-num pulse" id="heroNum">0</div>
+    <div class="hero-label">people coming to Thanksgiving!</div>
+    <div class="hero-sub" id="heroSub"></div>
+  </div>
+
+  <div class="name-bar">
+    <label for="guestName">Your name</label>
+    <input type="text" id="guestName" list="knownNames" placeholder="e.g. William Hubbell" autocomplete="name" />
+    <datalist id="knownNames"></datalist>
+  </div>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="rsvp">RSVP</button>
+    <button class="tab-btn" data-tab="potluck">Potluck</button>
+    <button class="tab-btn" data-tab="games">Games</button>
+  </nav>
+
+  <!-- RSVP -->
+  <section class="panel active" id="panel-rsvp">
+    <div class="card">
+      <h2>RSVP your family</h2>
+      <form id="rsvpForm">
+        <label for="familyName">Family name</label>
+        <input type="text" id="familyName" placeholder="e.g. Hubbell" />
+
+        <label>Attending?</label>
+        <div class="radio-row" id="attendingRow">
+          <label class="sel-yes" data-val="yes"><input type="radio" name="attending" value="yes" required /><span>Yes</span></label>
+          <label class="sel-maybe" data-val="maybe"><input type="radio" name="attending" value="maybe" /><span>Maybe</span></label>
+          <label class="sel-no" data-val="no"><input type="radio" name="attending" value="no" /><span>No</span></label>
+        </div>
+
+        <label>Family members</label>
+        <div class="member-chips" id="memberChips"></div>
+        <div class="add-row">
+          <input type="text" id="memberInput" placeholder="e.g. William Hubbell" />
+          <button class="btn secondary" type="button" id="addMemberBtn">+ Add member</button>
+        </div>
+
+        <label for="notes">Notes (allergies, dietary needs, arrival time, etc.)</label>
+        <textarea id="notes" placeholder="Optional"></textarea>
+
+        <button class="btn" type="submit">Save our RSVP</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Who's coming</h2>
+      <div id="familyList"></div>
+    </div>
+  </section>
+
+  <!-- Potluck -->
+  <section class="panel" id="panel-potluck">
+    <div class="card">
+      <h2>Potluck menu</h2>
+      <div class="phase-banner" id="phaseBanner"></div>
+      <div id="dishLists"></div>
+
+      <h3>Suggest a dish</h3>
+      <div class="add-row">
+        <select id="newDishCategory">
+          <option>Appetizer</option>
+          <option>Side</option>
+          <option>Main</option>
+          <option>Dessert</option>
+          <option>Drinks</option>
+          <option>Other</option>
+        </select>
+        <input type="text" id="newDishName" placeholder="e.g. Pecan pie" />
+      </div>
+      <button class="btn secondary" id="addDishBtn" type="button">Add dish</button>
+    </div>
+  </section>
+
+  <!-- Games -->
+  <section class="panel" id="panel-games">
+    <div class="card">
+      <h2>Pick a game to join</h2>
+      <p class="hint">Join as many as you'd like. Enter your name above first.</p>
+      <div id="gameList"></div>
+    </div>
+  </section>
+
+  <p class="footer-note">Shared with everyone invited — have fun with it 🙂</p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
