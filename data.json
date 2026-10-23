@@ -1,0 +1,198 @@
+{
+  "event": {
+    "dateLabel": "Thursday, November 26, 2026",
+    "dateTime": "2026-11-26T15:00:00",
+    "timeConfirmed": false,
+    "address": "108 North 200th Street, Shoreline, WA 98133"
+  },
+  "potluckPhaseMode": "auto",
+  "signupsStartDate": "2026-11-07",
+  "families": [],
+  "dishes": [
+    {
+      "id": 1,
+      "claimedBy": null,
+      "upvotes": [],
+      "downvotes": [],
+      "suggested": true,
+      "createdAt": "2026-10-23T05:45:49.739Z",
+      "category": "Appetizer",
+      "itemName": "Deviled eggs"
+    },
+    {
+      "id": 2,
+      "claimedBy": null,
+      "upvotes": [],
+      "downvotes": [],
+      "suggested": true,
+      "createdAt": "2026-10-23T05:45:49.739Z",
+      "category": "Appetizer",
+      "itemName": "Veggie tray & dip"
+    },
+    {
+      "id": 3,
+      "claimedBy": null,
+      "upvotes": [],
+      "downvotes": [],
+      "suggested": true,
+      "createdAt": "2026-10-23T05:45:49.739Z",
+      "category": "Side",
+      "itemName": "Mashed potatoes"
+    },
+    {
+      "id": 4,
+      "claimedBy": null,
+      "upvotes": [],
+      "downvotes": [],
+      "suggested": true,
+      "createdAt": "2026-10-23T05:45:49.739Z",
+      "category": "Side",
+      "itemName": "Green bean casserole"
+    },
+    {
+      "id": 5,
+      "claimedBy": null,
+      "upvotes": [],
+      "downvotes": [],
+      "suggested": true,
+      "createdAt": "2026-10-23T05:45:49.739Z",
+      "category": "Side",
+      "itemName": "Mac and cheese"
+    },
+    {
+      "id": 6,
+      "claimedBy": null,
+      "upvotes": [],
+      "downvotes": [],
+      "suggested": true,
+      "createdAt": "2026-10-23T05:45:49.739Z",
+      "category": "Side",
+      "itemName": "Stuffing"
+    },
+    {
+      "id": 7,
+      "claimedBy": null,
+      "upvotes": [],
+      "downvotes": [],
+      "suggested": true,
+      "createdAt": "2026-10-23T05:45:49.739Z",
+      "category": "Side",
+      "itemName": "Sweet potato casserole"
+    },
+    {
+      "id": 8,
+      "claimedBy": null,
+      "upvotes": [],
+      "downvotes": [],
+      "suggested": true,
+      "createdAt": "2026-10-23T05:45:49.739Z",
+      "category": "Side",
+      "itemName": "Cranberry sauce"
+    },
+    {
+      "id": 9,
+      "claimedBy": null,
+      "upvotes": [],
+      "downvotes": [],
+      "suggested": true,
+      "createdAt": "2026-10-23T05:45:49.739Z",
+      "category": "Side",
+      "itemName": "Dinner rolls"
+    },
+    {
+      "id": 10,
+      "claimedBy": null,
+      "upvotes": [],
+      "downvotes": [],
+      "suggested": true,
+      "createdAt": "2026-10-23T05:45:49.739Z",
+      "category": "Main",
+      "itemName": "Turkey"
+    },
+    {
+      "id": 11,
+      "claimedBy": null,
+      "upvotes": [],
+      "downvotes": [],
+      "suggested": true,
+      "createdAt": "2026-10-23T05:45:49.739Z",
+      "category": "Dessert",
+      "itemName": "Pumpkin pie"
+    },
+    {
+      "id": 12,
+      "claimedBy": null,
+      "upvotes": [],
+      "downvotes": [],
+      "suggested": true,
+      "createdAt": "2026-10-23T05:45:49.739Z",
+      "category": "Dessert",
+      "itemName": "Apple pie"
+    },
+    {
+      "id": 13,
+      "claimedBy": null,
+      "upvotes": [],
+      "downvotes": [],
+      "suggested": true,
+      "createdAt": "2026-10-23T05:45:49.739Z",
+      "category": "Dessert",
+      "itemName": "Cookies"
+    },
+    {
+      "id": 14,
+      "claimedBy": null,
+      "upvotes": [],
+      "downvotes": [],
+      "suggested": true,
+      "createdAt": "2026-10-23T05:45:49.739Z",
+      "category": "Drinks",
+      "itemName": "Sparkling cider"
+    },
+    {
+      "id": 15,
+      "claimedBy": null,
+      "upvotes": [],
+      "downvotes": [],
+      "suggested": true,
+      "createdAt": "2026-10-23T05:45:49.739Z",
+      "category": "Drinks",
+      "itemName": "Wine"
+    }
+  ],
+  "gameCategories": [
+    {
+      "id": 1,
+      "createdAt": "2026-10-23T05:45:49.739Z",
+      "name": "Trivia",
+      "description": "Thanksgiving & general trivia, teams of 2-4"
+    },
+    {
+      "id": 2,
+      "createdAt": "2026-10-23T05:45:49.739Z",
+      "name": "Pictionary",
+      "description": "Classic drawing & guessing game"
+    },
+    {
+      "id": 3,
+      "createdAt": "2026-10-23T05:45:49.739Z",
+      "name": "Talent Show",
+      "description": "Show off a party trick, song, or skill"
+    },
+    {
+      "id": 4,
+      "createdAt": "2026-10-23T05:45:49.739Z",
+      "name": "Prediction Pool",
+      "description": "Friendly bets on the game, the turkey, who falls asleep first, etc."
+    }
+  ],
+  "gameSignups": [],
+  "photos": [],
+  "nextIds": {
+    "families": 1,
+    "dishes": 16,
+    "gameCategories": 5,
+    "gameSignups": 1,
+    "photos": 1
+  }
+}
