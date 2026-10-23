@@ -1,7 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const { load, save, nextId } = require('./db');
+const { load, save, nextId, computePotluckPhase } = require('./db');
 
 const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = path.join(__dirname, 'public');
@@ -71,6 +71,22 @@ function dishScore(d) {
   return d.upvotes.length - d.downvotes.length;
 }
 
+// Event date/time, with a fixed Pacific-time offset appended so every
+// guest's browser (whatever timezone they're in) computes the same
+// countdown. Nov 26, 2026 is during Pacific Standard Time (UTC-8).
+function publicEvent(data) {
+  const ev = data.event || {};
+  return { ...ev, dateTime: ev.dateTime ? ev.dateTime + '-08:00' : null };
+}
+
+function scheduleNote(data) {
+  const phase = computePotluckPhase(data);
+  if (data.potluckPhaseMode !== 'auto') {
+    return phase === 'voting' ? 'Voting was reopened by the host.' : 'Sign-ups were opened early by the host.';
+  }
+  return phase === 'voting' ? 'Voting closes and sign-ups open Nov 7.' : 'Sign-ups opened automatically on Nov 7.';
+}
+
 function publicState(data) {
   const attending = data.families.filter((f) => f.attending === 'yes');
   const maybe = data.families.filter((f) => f.attending === 'maybe');
@@ -80,7 +96,10 @@ function publicState(data) {
   const sortedDishes = [...data.dishes].sort((a, b) => dishScore(b) - dishScore(a) || a.id - b.id);
 
   return {
-    potluckPhase: data.potluckPhase,
+    event: publicEvent(data),
+    potluckPhase: computePotluckPhase(data),
+    potluckPhaseMode: data.potluckPhaseMode,
+    potluckScheduleNote: scheduleNote(data),
     families: data.families,
     dishes: sortedDishes.map((d) => ({
       id: d.id,
@@ -209,7 +228,7 @@ route('POST', '/api/dishes', async (req, res) => {
     upvotes: [],
     downvotes: [],
     // Only let an immediate claim happen once sign-ups are open.
-    claimedBy: data.potluckPhase === 'signup' && guestName ? guestName : null,
+    claimedBy: computePotluckPhase(data) === 'signup' && guestName ? guestName : null,
     createdAt: new Date().toISOString(),
   };
   data.dishes.push(dish);
@@ -225,7 +244,7 @@ route('POST', '/api/dishes/:id/vote', async (req, res, params) => {
   if (!['up', 'down'].includes(voteValue)) return sendJson(res, 400, { error: 'Invalid vote' });
 
   const data = load();
-  if (data.potluckPhase !== 'voting') {
+  if (computePotluckPhase(data) !== 'voting') {
     return sendJson(res, 409, { error: 'Voting has closed — sign-ups are open now' });
   }
   const dish = data.dishes.find((d) => d.id === parseInt(params.id, 10));
@@ -260,7 +279,7 @@ route('POST', '/api/dishes/:id/claim', async (req, res, params) => {
   if (!guestName) return sendJson(res, 400, { error: 'Your name is required' });
 
   const data = load();
-  if (data.potluckPhase !== 'signup') {
+  if (computePotluckPhase(data) !== 'signup') {
     return sendJson(res, 409, { error: 'Sign-ups open once voting ends' });
   }
   const dish = data.dishes.find((d) => d.id === parseInt(params.id, 10));
@@ -291,13 +310,29 @@ route('DELETE', '/api/dishes/:id', async (req, res, params) => {
 
 route('POST', '/api/potluck-phase', async (req, res) => {
   const body = await readBody(req);
-  if (!['voting', 'signup'].includes(body.phase)) {
-    return sendJson(res, 400, { error: 'Phase must be voting or signup' });
+  if (!['auto', 'manual-voting', 'manual-signup'].includes(body.mode)) {
+    return sendJson(res, 400, { error: 'Mode must be auto, manual-voting, or manual-signup' });
   }
   const data = load();
-  data.potluckPhase = body.phase;
+  data.potluckPhaseMode = body.mode;
   save(data);
-  sendJson(res, 200, { potluckPhase: data.potluckPhase });
+  sendJson(res, 200, { potluckPhaseMode: data.potluckPhaseMode, potluckPhase: computePotluckPhase(data) });
+});
+
+// ---- Event details (dashboard) ----
+
+route('POST', '/api/event', async (req, res) => {
+  const body = await readBody(req);
+  const data = load();
+  const time = (body.time || '').trim();
+  if (/^\d{2}:\d{2}$/.test(time)) {
+    data.event.dateTime = '2026-11-26T' + time + ':00';
+  }
+  data.event.timeConfirmed = !!body.timeConfirmed;
+  const address = (body.address || '').trim();
+  if (address) data.event.address = address.slice(0, 300);
+  save(data);
+  sendJson(res, 200, { event: publicEvent(data) });
 });
 
 // ---- Games ----
