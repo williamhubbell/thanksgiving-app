@@ -187,12 +187,22 @@
     }
   ],
   "gameSignups": [],
-  "photos": [],
+  "photos": [
+    {
+      "id": 1,
+      "year": "Past Thanksgivings",
+      "caption": "",
+      "uploadedBy": "William Hubbell",
+      "path": "photos/1.jpg",
+      "url": "https://raw.githubusercontent.com/williamhubbell/thanksgiving-app/data/photos/1.jpg",
+      "createdAt": "2026-10-23T15:40:02.907Z"
+    }
+  ],
   "nextIds": {
     "families": 1,
     "dishes": 16,
     "gameCategories": 5,
     "gameSignups": 1,
-    "photos": 1
+    "photos": 2
   }
 }
