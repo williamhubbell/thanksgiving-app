@@ -15,15 +15,41 @@
   }
 
   let state = null;
+  let eventFormLoaded = false;
 
   async function refresh() {
     state = await api('GET', '/api/state');
     renderSummary();
+    renderEventForm();
     renderPhaseButtons();
     renderFamilies();
     renderDishes();
     renderGames();
   }
+
+  function renderEventForm() {
+    if (eventFormLoaded) return; // don't fight the organizer mid-edit on the 15s poll
+    const ev = (state && state.event) || {};
+    if (ev.dateTime && ev.dateTime.length >= 16) {
+      document.getElementById('eventTimeInput').value = ev.dateTime.slice(11, 16);
+    }
+    document.getElementById('eventTimeConfirmed').checked = !!ev.timeConfirmed;
+    document.getElementById('eventAddressInput').value = ev.address || '';
+    eventFormLoaded = true;
+  }
+
+  document.getElementById('saveEventBtn').addEventListener('click', async () => {
+    const time = document.getElementById('eventTimeInput').value;
+    const timeConfirmed = document.getElementById('eventTimeConfirmed').checked;
+    const address = document.getElementById('eventAddressInput').value.trim();
+    try {
+      await api('POST', '/api/event', { time, timeConfirmed, address });
+      toast('Event details saved');
+      refresh();
+    } catch (err) {
+      toast(err.message);
+    }
+  });
 
   function renderSummary() {
     const s = state.summary || {};
@@ -37,21 +63,32 @@
 
   function renderPhaseButtons() {
     const voting = state.potluckPhase === 'voting';
-    document.getElementById('phaseVotingBtn').classList.toggle('active-phase', voting);
-    document.getElementById('phaseSignupBtn').classList.toggle('active-phase', !voting);
+    const mode = state.potluckPhaseMode || 'auto';
+    document.getElementById('phaseVotingBtn').classList.toggle('active-phase', mode === 'manual-voting');
+    document.getElementById('phaseSignupBtn').classList.toggle('active-phase', mode === 'manual-signup');
+    document.getElementById('phaseAutoBtn').classList.toggle('active-phase', mode === 'auto');
+    document.getElementById('phaseStatusLine').textContent =
+      `Right now: ${voting ? 'voting is open' : 'sign-ups are open'} (${mode === 'auto' ? 'automatic schedule' : 'manual override'}).`;
   }
 
-  async function setPhase(phase) {
+  async function setPhaseMode(mode) {
     try {
-      await api('POST', '/api/potluck-phase', { phase });
-      toast(phase === 'voting' ? 'Voting reopened' : 'Sign-ups are open!');
+      await api('POST', '/api/potluck-phase', { mode });
+      toast(
+        mode === 'auto'
+          ? 'Back to the automatic schedule'
+          : mode === 'manual-voting'
+          ? 'Voting forced open'
+          : 'Sign-ups forced open'
+      );
       refresh();
     } catch (err) {
       toast(err.message);
     }
   }
-  document.getElementById('phaseVotingBtn').addEventListener('click', () => setPhase('voting'));
-  document.getElementById('phaseSignupBtn').addEventListener('click', () => setPhase('signup'));
+  document.getElementById('phaseVotingBtn').addEventListener('click', () => setPhaseMode('manual-voting'));
+  document.getElementById('phaseSignupBtn').addEventListener('click', () => setPhaseMode('manual-signup'));
+  document.getElementById('phaseAutoBtn').addEventListener('click', () => setPhaseMode('auto'));
 
   async function deleteFamily(id) {
     if (!confirm('Remove this family\'s RSVP?')) return;
