@@ -1,0 +1,13 @@
+{
+  "name": "thanksgiving-app",
+  "version": "1.0.0",
+  "description": "Shareable-link app for planning Thanksgiving dinner: RSVP, potluck sign-up, and game team sign-up.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {}
+}
