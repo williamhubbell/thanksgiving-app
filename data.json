@@ -225,7 +225,9 @@
       "category": "Dessert",
       "itemName": "Cherry Cheesecake",
       "suggested": false,
-      "upvotes": [],
+      "upvotes": [
+        "William"
+      ],
       "downvotes": [],
       "claimedBy": null,
       "createdAt": "2026-10-23T15:55:54.604Z"
