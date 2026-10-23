@@ -17,10 +17,12 @@
         "Niko",
         "Mitchell",
         "William Jr.",
-        "William Sr."
+        "William Sr.",
+        "Ronnie"
       ],
       "notes": "",
-      "createdAt": "2026-10-23T15:52:36.146Z"
+      "createdAt": "2026-10-23T15:52:36.146Z",
+      "updatedAt": "2026-10-23T15:52:58.671Z"
     }
   ],
   "dishes": [
