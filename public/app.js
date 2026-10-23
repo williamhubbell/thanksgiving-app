@@ -1,0 +1,354 @@
+(function () {
+  const NAME_KEY = 'tg_guest_name';
+  const FAMILY_KEY = 'tg_family_name';
+  const guestNameInput = document.getElementById('guestName');
+  const familyNameInput = document.getElementById('familyName');
+  guestNameInput.value = localStorage.getItem(NAME_KEY) || '';
+  familyNameInput.value = localStorage.getItem(FAMILY_KEY) || '';
+
+  guestNameInput.addEventListener('change', () => {
+    localStorage.setItem(NAME_KEY, guestNameInput.value.trim());
+  });
+  familyNameInput.addEventListener('change', () => {
+    localStorage.setItem(FAMILY_KEY, familyNameInput.value.trim());
+  });
+
+  function currentName() {
+    return guestNameInput.value.trim();
+  }
+
+  function toast(msg) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), 2200);
+  }
+
+  function requireName() {
+    const n = currentName();
+    if (!n) {
+      toast('Enter your name at the top first');
+      guestNameInput.focus();
+      return null;
+    }
+    localStorage.setItem(NAME_KEY, n);
+    return n;
+  }
+
+  // ---- Tabs ----
+  document.querySelectorAll('.tab-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach((b) => b.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach((p) => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ---- API helpers ----
+  async function api(method, url, body) {
+    const res = await fetch(url, {
+      method,
+      headers: body ? { 'Content-Type': 'application/json' } : undefined,
+      body: body ? JSON.stringify(body) : undefined,
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || 'Something went wrong');
+    return data;
+  }
+
+  let state = { families: [], dishes: [], gameCategories: [], summary: {}, potluckPhase: 'voting' };
+  let lastHeroNum = null;
+  let draftMembers = [];
+  let draftLoadedFor = null;
+
+  async function refresh() {
+    state = await api('GET', '/api/state');
+    renderHero();
+    renderKnownNames();
+    renderRsvp();
+    renderPotluck();
+    renderGames();
+  }
+
+  function renderHero() {
+    const n = state.summary.totalHeadcountYes || 0;
+    const el = document.getElementById('heroNum');
+    el.textContent = n;
+    if (lastHeroNum !== null && n !== lastHeroNum) {
+      el.classList.remove('pulse');
+      void el.offsetWidth; // restart animation
+      el.classList.add('pulse');
+    }
+    lastHeroNum = n;
+    const maybeN = state.summary.totalHeadcountMaybe || 0;
+    document.getElementById('heroSub').textContent =
+      `${state.summary.attendingFamiliesCount || 0} families confirmed` + (maybeN ? ` · ${maybeN} more maybe joining` : '');
+  }
+
+  function renderKnownNames() {
+    const names = new Set();
+    state.families.forEach((f) => f.members.forEach((m) => names.add(m)));
+    const dl = document.getElementById('knownNames');
+    dl.innerHTML = [...names].map((n) => `<option value="${escapeHtml(n)}"></option>`).join('');
+  }
+
+  // ---- RSVP ----
+  document.querySelectorAll('#attendingRow input').forEach((input) => {
+    input.addEventListener('change', () => {
+      document.querySelectorAll('#attendingRow label').forEach((l) => l.classList.remove('checked'));
+      input.closest('label').classList.add('checked');
+    });
+  });
+
+  function renderMemberChips() {
+    document.getElementById('memberChips').innerHTML = draftMembers.length
+      ? draftMembers
+          .map(
+            (m, i) =>
+              `<span class="member-chip">${escapeHtml(m)}<button type="button" data-i="${i}" title="Remove">✕</button></span>`
+          )
+          .join('')
+      : '<span class="hint">No members added yet</span>';
+    document.querySelectorAll('#memberChips button').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        draftMembers.splice(parseInt(btn.dataset.i, 10), 1);
+        renderMemberChips();
+      });
+    });
+  }
+
+  function addMember() {
+    const input = document.getElementById('memberInput');
+    const name = input.value.trim();
+    if (!name) return;
+    draftMembers.push(name);
+    input.value = '';
+    renderMemberChips();
+    input.focus();
+  }
+  document.getElementById('addMemberBtn').addEventListener('click', addMember);
+  document.getElementById('memberInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addMember();
+    }
+  });
+
+  document.getElementById('rsvpForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const familyName = familyNameInput.value.trim();
+    if (!familyName) return toast('Enter your family name');
+    const attending = document.querySelector('#attendingRow input:checked');
+    if (!attending) return toast('Pick yes, maybe, or no');
+    if (draftMembers.length === 0) return toast('Add at least one family member');
+    const notes = document.getElementById('notes').value;
+    try {
+      await api('POST', '/api/families', { familyName, attending: attending.value, members: draftMembers, notes });
+      localStorage.setItem(FAMILY_KEY, familyName);
+      toast('RSVP saved — thank you!');
+      await refresh();
+    } catch (err) {
+      toast(err.message);
+    }
+  });
+
+  function renderRsvp() {
+    const familyName = familyNameInput.value.trim().toLowerCase();
+    const mine = state.families.find((f) => f.familyName.toLowerCase() === familyName);
+    if (mine && draftLoadedFor !== mine.familyName.toLowerCase()) {
+      draftMembers = [...mine.members];
+      draftLoadedFor = mine.familyName.toLowerCase();
+      const radio = document.querySelector(`#attendingRow input[value="${mine.attending}"]`);
+      if (radio) {
+        radio.checked = true;
+        document.querySelectorAll('#attendingRow label').forEach((l) => l.classList.remove('checked'));
+        radio.closest('label').classList.add('checked');
+      }
+      document.getElementById('notes').value = mine.notes || '';
+    }
+    renderMemberChips();
+
+    const sorted = [...state.families].sort((a, b) => a.familyName.localeCompare(b.familyName));
+    document.getElementById('familyList').innerHTML = sorted.length
+      ? sorted
+          .map(
+            (f) => `
+        <div class="family-block">
+          <span class="family-name">${escapeHtml(f.familyName)} family</span>
+          <span class="badge ${f.attending}">${f.attending}</span>
+          <ul>${f.members.map((m) => `<li>${escapeHtml(m)}</li>`).join('') || '<li class="hint">No members listed</li>'}</ul>
+          ${f.notes ? `<div class="item-sub">${escapeHtml(f.notes)}</div>` : ''}
+        </div>`
+          )
+          .join('')
+      : '<p class="hint">No RSVPs yet — be the first!</p>';
+  }
+
+  // ---- Potluck ----
+  document.getElementById('addDishBtn').addEventListener('click', async () => {
+    const name = requireName();
+    if (!name) return;
+    const category = document.getElementById('newDishCategory').value;
+    const itemName = document.getElementById('newDishName').value.trim();
+    if (!itemName) return toast('Enter a dish name');
+    try {
+      await api('POST', '/api/dishes', { category, itemName, guestName: name });
+      document.getElementById('newDishName').value = '';
+      toast(state.potluckPhase === 'signup' ? 'Added & claimed!' : 'Added to the vote!');
+      await refresh();
+    } catch (err) {
+      toast(err.message);
+    }
+  });
+
+  async function voteDish(id, vote) {
+    const name = requireName();
+    if (!name) return;
+    try {
+      await api('POST', `/api/dishes/${id}/vote`, { personName: name, vote });
+      await refresh();
+    } catch (err) {
+      toast(err.message);
+    }
+  }
+  async function claimDish(id) {
+    const name = requireName();
+    if (!name) return;
+    try {
+      await api('POST', `/api/dishes/${id}/claim`, { guestName: name });
+      toast("Nice — you're bringing it!");
+      await refresh();
+    } catch (err) {
+      toast(err.message);
+    }
+  }
+  async function unclaimDish(id) {
+    try {
+      await api('POST', `/api/dishes/${id}/unclaim`, {});
+      toast('Removed your claim');
+      await refresh();
+    } catch (err) {
+      toast(err.message);
+    }
+  }
+  window.__voteDish = voteDish;
+  window.__claimDish = claimDish;
+  window.__unclaimDish = unclaimDish;
+
+  function renderPotluck() {
+    const myName = currentName().toLowerCase();
+    const voting = state.potluckPhase === 'voting';
+    document.getElementById('phaseBanner').textContent = voting
+      ? '🗳️ Voting is open — upvote what you want on the menu. Sign-ups open once voting ends.'
+      : '✅ Sign-ups are open — claim a dish below!';
+
+    const categories = ['Appetizer', 'Side', 'Main', 'Dessert', 'Drinks', 'Other'];
+    const byCategory = {};
+    categories.forEach((c) => (byCategory[c] = []));
+    state.dishes.forEach((d) => {
+      if (!byCategory[d.category]) byCategory[d.category] = [];
+      byCategory[d.category].push(d);
+    });
+
+    document.getElementById('dishLists').innerHTML = categories
+      .filter((c) => byCategory[c].length)
+      .map((cat) => {
+        const items = byCategory[cat]
+          .map((d) => {
+            const iUpvoted = d.upvotes.some((n) => n.toLowerCase() === myName);
+            const iDownvoted = d.downvotes.some((n) => n.toLowerCase() === myName);
+            const isMine = d.claimedBy && d.claimedBy.toLowerCase() === myName;
+
+            let rightControls;
+            if (voting) {
+              rightControls = `
+                <div class="vote-controls">
+                  <button class="vote-btn up ${iUpvoted ? 'active' : ''}" onclick="__voteDish(${d.id},'up')">▲</button>
+                  <span class="score-num">${d.score > 0 ? '+' : ''}${d.score}</span>
+                  <button class="vote-btn down ${iDownvoted ? 'active' : ''}" onclick="__voteDish(${d.id},'down')">▼</button>
+                </div>`;
+            } else {
+              const action = d.claimedBy
+                ? isMine
+                  ? `<button class="btn small secondary" onclick="__unclaimDish(${d.id})">Unclaim</button>`
+                  : ''
+                : `<button class="btn small" onclick="__claimDish(${d.id})">Claim</button>`;
+              rightControls = `<span class="badge ${d.claimedBy ? 'claimed' : 'open'}">${d.claimedBy ? 'Claimed' : 'Open'}</span>${action}`;
+            }
+
+            return `
+          <div class="list-item">
+            <div class="item-main">
+              <div class="item-title">${escapeHtml(d.itemName)}</div>
+              <div class="item-sub">${
+                voting
+                  ? `${d.upvotes.length} up · ${d.downvotes.length} down`
+                  : d.claimedBy
+                  ? 'Bringing: ' + escapeHtml(d.claimedBy)
+                  : 'Nobody has claimed this yet'
+              }</div>
+            </div>
+            ${rightControls}
+          </div>`;
+          })
+          .join('');
+        return `<h3>${cat}</h3>${items}`;
+      })
+      .join('');
+  }
+
+  // ---- Games ----
+  async function joinGame(id) {
+    const name = requireName();
+    if (!name) return;
+    try {
+      await api('POST', '/api/games/signup', { guestName: name, categoryId: id });
+      toast("You're in!");
+      await refresh();
+    } catch (err) {
+      toast(err.message);
+    }
+  }
+  async function leaveGame(id) {
+    const name = requireName();
+    if (!name) return;
+    try {
+      await api('POST', '/api/games/leave', { guestName: name, categoryId: id });
+      toast('Left that game');
+      await refresh();
+    } catch (err) {
+      toast(err.message);
+    }
+  }
+  window.__joinGame = joinGame;
+  window.__leaveGame = leaveGame;
+
+  function renderGames() {
+    const myName = currentName().toLowerCase();
+    document.getElementById('gameList').innerHTML = state.gameCategories
+      .map((c) => {
+        const mine = c.signups.some((s) => s.toLowerCase() === myName);
+        return `
+        <div class="list-item">
+          <div class="item-main">
+            <div class="item-title">${escapeHtml(c.name)}</div>
+            <div class="item-sub">${escapeHtml(c.description || '')}${c.signups.length ? ' · ' + c.signups.length + ' joined: ' + escapeHtml(c.signups.join(', ')) : ' · No one yet'}</div>
+          </div>
+          ${
+            mine
+              ? `<button class="btn small secondary" onclick="__leaveGame(${c.id})">Leave</button>`
+              : `<button class="btn small" onclick="__joinGame(${c.id})">Join</button>`
+          }
+        </div>`;
+      })
+      .join('');
+  }
+
+  function escapeHtml(str) {
+    return String(str || '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+
+  refresh();
+  setInterval(refresh, 15000); // light polling so people see new claims/RSVPs/votes without refreshing
+})();
