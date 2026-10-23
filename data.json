@@ -260,7 +260,9 @@
       "category": "Main",
       "itemName": "Deep Fried Turkey",
       "suggested": false,
-      "upvotes": [],
+      "upvotes": [
+        "Debbie"
+      ],
       "downvotes": [],
       "claimedBy": null,
       "createdAt": "2026-10-23T15:54:49.615Z"
