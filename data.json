@@ -23,6 +23,20 @@
       "notes": "",
       "createdAt": "2026-10-23T15:52:36.146Z",
       "updatedAt": "2026-10-23T15:52:58.671Z"
+    },
+    {
+      "id": 2,
+      "familyName": "Orlovic family",
+      "attending": "yes",
+      "members": [
+        "Ivana",
+        "Chris",
+        "Lazar",
+        "Milena",
+        "Ilija"
+      ],
+      "notes": "",
+      "createdAt": "2026-10-23T16:01:36.783Z"
     }
   ],
   "dishes": [
@@ -324,7 +338,7 @@
     }
   ],
   "nextIds": {
-    "families": 2,
+    "families": 3,
     "dishes": 21,
     "gameCategories": 5,
     "gameSignups": 2,
