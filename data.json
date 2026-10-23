@@ -268,7 +268,9 @@
       "category": "Appetizer",
       "itemName": "Corn casserole",
       "suggested": false,
-      "upvotes": [],
+      "upvotes": [
+        "Ivana"
+      ],
       "downvotes": [],
       "claimedBy": null,
       "createdAt": "2026-10-23T16:06:29.143Z"
