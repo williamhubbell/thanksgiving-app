@@ -213,7 +213,9 @@
       "category": "Main",
       "itemName": "Prime Rib",
       "suggested": false,
-      "upvotes": [],
+      "upvotes": [
+        "Ivana"
+      ],
       "downvotes": [],
       "claimedBy": null,
       "createdAt": "2026-10-23T15:54:39.432Z"
