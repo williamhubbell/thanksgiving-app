@@ -65,7 +65,9 @@
     {
       "id": 3,
       "claimedBy": null,
-      "upvotes": [],
+      "upvotes": [
+        "Ivana"
+      ],
       "downvotes": [],
       "suggested": true,
       "createdAt": "2026-10-23T05:45:49.739Z",
