@@ -47,6 +47,16 @@
       ],
       "notes": "",
       "createdAt": "2026-10-23T16:11:17.501Z"
+    },
+    {
+      "id": 4,
+      "familyName": "Mike",
+      "attending": "yes",
+      "members": [
+        "Lindsey"
+      ],
+      "notes": "",
+      "createdAt": "2026-10-23T16:13:17.231Z"
     }
   ],
   "dishes": [
@@ -377,7 +387,7 @@
     }
   ],
   "nextIds": {
-    "families": 4,
+    "families": 5,
     "dishes": 22,
     "gameCategories": 5,
     "gameSignups": 2,
