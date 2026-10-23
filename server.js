@@ -1,7 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const { load, save, nextId, computePotluckPhase } = require('./db');
+const { load, save, nextId, computePotluckPhase, uploadPhoto, deletePhotoFile } = require('./db');
 
 const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = path.join(__dirname, 'public');
@@ -94,6 +94,7 @@ function publicState(data) {
   const totalHeadcountMaybe = maybe.reduce((sum, f) => sum + f.members.length, 0);
 
   const sortedDishes = [...data.dishes].sort((a, b) => dishScore(b) - dishScore(a) || a.id - b.id);
+  const photos = [...(data.photos || [])].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
   return {
     event: publicEvent(data),
@@ -101,6 +102,7 @@ function publicState(data) {
     potluckPhaseMode: data.potluckPhaseMode,
     potluckScheduleNote: scheduleNote(data),
     families: data.families,
+    photos,
     dishes: sortedDishes.map((d) => ({
       id: d.id,
       category: d.category,
@@ -120,6 +122,7 @@ function publicState(data) {
       attendingFamiliesCount: attending.length,
       totalHeadcountYes,
       totalHeadcountMaybe,
+      photosCount: photos.length,
     },
   };
 }
@@ -162,7 +165,7 @@ async function handleApi(req, res, urlPath) {
 // ---- Public state ----
 
 route('GET', '/api/state', async (req, res) => {
-  const data = load();
+  const data = await load();
   sendJson(res, 200, publicState(data));
 });
 
@@ -181,7 +184,7 @@ route('POST', '/api/families', async (req, res) => {
     : [];
   const notes = (body.notes || '').trim().slice(0, 500);
 
-  const data = load();
+  const data = await load();
   let family = data.families.find((f) => f.familyName.toLowerCase() === familyName.toLowerCase());
   if (family) {
     family.attending = attending;
@@ -199,14 +202,14 @@ route('POST', '/api/families', async (req, res) => {
     };
     data.families.push(family);
   }
-  save(data);
+  await save(data);
   sendJson(res, 200, { family });
 });
 
 route('DELETE', '/api/families/:id', async (req, res, params) => {
-  const data = load();
+  const data = await load();
   data.families = data.families.filter((f) => f.id !== parseInt(params.id, 10));
-  save(data);
+  await save(data);
   sendJson(res, 200, { ok: true });
 });
 
@@ -219,7 +222,7 @@ route('POST', '/api/dishes', async (req, res) => {
   const guestName = (body.guestName || '').trim();
   if (!category || !itemName) return sendJson(res, 400, { error: 'Category and item name are required' });
 
-  const data = load();
+  const data = await load();
   const dish = {
     id: nextId(data, 'dishes'),
     category,
@@ -232,7 +235,7 @@ route('POST', '/api/dishes', async (req, res) => {
     createdAt: new Date().toISOString(),
   };
   data.dishes.push(dish);
-  save(data);
+  await save(data);
   sendJson(res, 201, { dish });
 });
 
@@ -243,7 +246,7 @@ route('POST', '/api/dishes/:id/vote', async (req, res, params) => {
   if (!personName) return sendJson(res, 400, { error: 'Your name is required to vote' });
   if (!['up', 'down'].includes(voteValue)) return sendJson(res, 400, { error: 'Invalid vote' });
 
-  const data = load();
+  const data = await load();
   if (computePotluckPhase(data) !== 'voting') {
     return sendJson(res, 409, { error: 'Voting has closed — sign-ups are open now' });
   }
@@ -269,7 +272,7 @@ route('POST', '/api/dishes/:id/vote', async (req, res, params) => {
       dish.downvotes.push(personName);
     }
   }
-  save(data);
+  await save(data);
   sendJson(res, 200, { dish });
 });
 
@@ -278,7 +281,7 @@ route('POST', '/api/dishes/:id/claim', async (req, res, params) => {
   const guestName = (body.guestName || '').trim();
   if (!guestName) return sendJson(res, 400, { error: 'Your name is required' });
 
-  const data = load();
+  const data = await load();
   if (computePotluckPhase(data) !== 'signup') {
     return sendJson(res, 409, { error: 'Sign-ups open once voting ends' });
   }
@@ -286,23 +289,23 @@ route('POST', '/api/dishes/:id/claim', async (req, res, params) => {
   if (!dish) return notFound(res);
   if (dish.claimedBy) return sendJson(res, 409, { error: 'That item is already claimed' });
   dish.claimedBy = guestName;
-  save(data);
+  await save(data);
   sendJson(res, 200, { dish });
 });
 
 route('POST', '/api/dishes/:id/unclaim', async (req, res, params) => {
-  const data = load();
+  const data = await load();
   const dish = data.dishes.find((d) => d.id === parseInt(params.id, 10));
   if (!dish) return notFound(res);
   dish.claimedBy = null;
-  save(data);
+  await save(data);
   sendJson(res, 200, { dish });
 });
 
 route('DELETE', '/api/dishes/:id', async (req, res, params) => {
-  const data = load();
+  const data = await load();
   data.dishes = data.dishes.filter((d) => d.id !== parseInt(params.id, 10));
-  save(data);
+  await save(data);
   sendJson(res, 200, { ok: true });
 });
 
@@ -313,9 +316,9 @@ route('POST', '/api/potluck-phase', async (req, res) => {
   if (!['auto', 'manual-voting', 'manual-signup'].includes(body.mode)) {
     return sendJson(res, 400, { error: 'Mode must be auto, manual-voting, or manual-signup' });
   }
-  const data = load();
+  const data = await load();
   data.potluckPhaseMode = body.mode;
-  save(data);
+  await save(data);
   sendJson(res, 200, { potluckPhaseMode: data.potluckPhaseMode, potluckPhase: computePotluckPhase(data) });
 });
 
@@ -323,7 +326,7 @@ route('POST', '/api/potluck-phase', async (req, res) => {
 
 route('POST', '/api/event', async (req, res) => {
   const body = await readBody(req);
-  const data = load();
+  const data = await load();
   const time = (body.time || '').trim();
   if (/^\d{2}:\d{2}$/.test(time)) {
     data.event.dateTime = '2026-11-26T' + time + ':00';
@@ -331,7 +334,7 @@ route('POST', '/api/event', async (req, res) => {
   data.event.timeConfirmed = !!body.timeConfirmed;
   const address = (body.address || '').trim();
   if (address) data.event.address = address.slice(0, 300);
-  save(data);
+  await save(data);
   sendJson(res, 200, { event: publicEvent(data) });
 });
 
@@ -343,7 +346,7 @@ route('POST', '/api/games/signup', async (req, res) => {
   const categoryId = parseInt(body.categoryId, 10);
   if (!guestName || !categoryId) return sendJson(res, 400, { error: 'Your name and a category are required' });
 
-  const data = load();
+  const data = await load();
   const category = data.gameCategories.find((c) => c.id === categoryId);
   if (!category) return sendJson(res, 404, { error: 'Game category not found' });
   const exists = data.gameSignups.some(
@@ -356,7 +359,7 @@ route('POST', '/api/games/signup', async (req, res) => {
       categoryId,
       createdAt: new Date().toISOString(),
     });
-    save(data);
+    await save(data);
   }
   sendJson(res, 200, { ok: true });
 });
@@ -365,11 +368,11 @@ route('POST', '/api/games/leave', async (req, res) => {
   const body = await readBody(req);
   const guestName = (body.guestName || '').trim();
   const categoryId = parseInt(body.categoryId, 10);
-  const data = load();
+  const data = await load();
   data.gameSignups = data.gameSignups.filter(
     (s) => !(s.categoryId === categoryId && s.guestName.toLowerCase() === guestName.toLowerCase())
   );
-  save(data);
+  await save(data);
   sendJson(res, 200, { ok: true });
 });
 
@@ -378,19 +381,71 @@ route('POST', '/api/game-categories', async (req, res) => {
   const name = (body.name || '').trim();
   const description = (body.description || '').trim();
   if (!name) return sendJson(res, 400, { error: 'Name is required' });
-  const data = load();
+  const data = await load();
   const category = { id: nextId(data, 'gameCategories'), name, description, createdAt: new Date().toISOString() };
   data.gameCategories.push(category);
-  save(data);
+  await save(data);
   sendJson(res, 201, { category });
 });
 
 route('DELETE', '/api/game-categories/:id', async (req, res, params) => {
   const id = parseInt(params.id, 10);
-  const data = load();
+  const data = await load();
   data.gameCategories = data.gameCategories.filter((c) => c.id !== id);
   data.gameSignups = data.gameSignups.filter((s) => s.categoryId !== id);
-  save(data);
+  await save(data);
+  sendJson(res, 200, { ok: true });
+});
+
+// ---- Photos ----
+
+route('POST', '/api/photos', async (req, res) => {
+  const body = await readBody(req);
+  const year = (body.year || '').trim().slice(0, 40) || 'Past Thanksgivings';
+  const caption = (body.caption || '').trim().slice(0, 300);
+  const uploadedBy = (body.uploadedBy || '').trim().slice(0, 80) || 'Someone';
+  const dataUrl = body.dataUrl || '';
+  const match = /^data:(image\/(?:jpeg|png|webp));base64,([a-zA-Z0-9+/=]+)$/.exec(dataUrl);
+  if (!match) return sendJson(res, 400, { error: 'Please choose a photo to upload' });
+
+  const mime = match[1];
+  const ext = mime === 'image/png' ? 'png' : mime === 'image/webp' ? 'webp' : 'jpg';
+  const buffer = Buffer.from(match[2], 'base64');
+  if (buffer.length > 1.3 * 1024 * 1024) {
+    return sendJson(res, 400, { error: 'That photo is too large — please try a different one' });
+  }
+
+  const data = await load();
+  const id = nextId(data, 'photos');
+  const repoPath = `photos/${id}.${ext}`;
+  let url;
+  try {
+    url = await uploadPhoto(buffer, repoPath, `Add photo #${id} via Hubbell Thanksgiving app`);
+  } catch (e) {
+    console.error(e);
+    // Don't burn this id on a failed upload.
+    data.nextIds.photos = id;
+    return sendJson(res, 502, { error: 'Could not upload the photo right now — please try again in a moment' });
+  }
+  const photo = { id, year, caption, uploadedBy, path: repoPath, url, createdAt: new Date().toISOString() };
+  data.photos = data.photos || [];
+  data.photos.push(photo);
+  await save(data);
+  sendJson(res, 201, { photo });
+});
+
+route('DELETE', '/api/photos/:id', async (req, res, params) => {
+  const id = parseInt(params.id, 10);
+  const data = await load();
+  const photo = (data.photos || []).find((p) => p.id === id);
+  if (!photo) return notFound(res);
+  data.photos = data.photos.filter((p) => p.id !== id);
+  await save(data);
+  try {
+    await deletePhotoFile(photo.path);
+  } catch (e) {
+    console.error('Failed to delete photo file from GitHub:', e.message);
+  }
   sendJson(res, 200, { ok: true });
 });
 
