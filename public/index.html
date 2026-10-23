@@ -37,6 +37,7 @@
     <button class="tab-btn active" data-tab="rsvp">RSVP</button>
     <button class="tab-btn" data-tab="potluck">Potluck</button>
     <button class="tab-btn" data-tab="games">Games</button>
+    <button class="tab-btn" data-tab="photos">Photos</button>
   </nav>
 
   <!-- RSVP -->
@@ -106,10 +107,34 @@
     </div>
   </section>
 
+  <!-- Photos -->
+  <section class="panel" id="panel-photos">
+    <div class="card">
+      <h2>Add a photo</h2>
+      <p class="hint">From today, or any Thanksgiving past — share it here for everyone to see.</p>
+      <label for="photoFile">Choose a photo</label>
+      <input type="file" id="photoFile" accept="image/*" />
+      <label for="photoYear">Year (or just "this year")</label>
+      <input type="text" id="photoYear" placeholder="e.g. 2026" />
+      <label for="photoCaption">Caption (optional)</label>
+      <input type="text" id="photoCaption" placeholder="e.g. The whole crew before dinner" />
+      <button class="btn full-width" id="uploadPhotoBtn" type="button">Upload photo</button>
+      <p class="hint" id="uploadStatus"></p>
+    </div>
+
+    <div class="card">
+      <h2>Photo gallery</h2>
+      <div id="photoGallery"></div>
+    </div>
+  </section>
+
   <p class="footer-note">Shared with everyone invited — have fun with it 🙂</p>
 </div>
 
 <div class="toast" id="toast"></div>
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('show')">
+  <img id="lightboxImg" src="" alt="" />
+</div>
 
 <script src="app.js"></script>
 </body>
