@@ -219,6 +219,16 @@
       "downvotes": [],
       "claimedBy": null,
       "createdAt": "2026-10-23T15:55:35.304Z"
+    },
+    {
+      "id": 20,
+      "category": "Dessert",
+      "itemName": "Cherry Cheesecake",
+      "suggested": false,
+      "upvotes": [],
+      "downvotes": [],
+      "claimedBy": null,
+      "createdAt": "2026-10-23T15:55:54.604Z"
     }
   ],
   "gameCategories": [
@@ -306,7 +316,7 @@
   ],
   "nextIds": {
     "families": 2,
-    "dishes": 20,
+    "dishes": 21,
     "gameCategories": 5,
     "gameSignups": 1,
     "photos": 7
