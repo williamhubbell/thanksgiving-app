@@ -7,7 +7,22 @@
   },
   "potluckPhaseMode": "auto",
   "signupsStartDate": "2026-11-07",
-  "families": [],
+  "families": [
+    {
+      "id": 1,
+      "familyName": "Hubbell",
+      "attending": "yes",
+      "members": [
+        "Debbie",
+        "Niko",
+        "Mitchell",
+        "William Jr.",
+        "William Sr."
+      ],
+      "notes": "",
+      "createdAt": "2026-10-23T15:52:36.146Z"
+    }
+  ],
   "dishes": [
     {
       "id": 1,
@@ -244,7 +259,7 @@
     }
   ],
   "nextIds": {
-    "families": 1,
+    "families": 2,
     "dishes": 16,
     "gameCategories": 5,
     "gameSignups": 1,
