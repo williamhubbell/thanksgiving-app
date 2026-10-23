@@ -6,9 +6,25 @@ const path = require('path');
 const DATA_DIR = process.env.DATA_DIR || __dirname;
 const DATA_FILE = path.join(DATA_DIR, 'data.json');
 
+// Pacific-time date (YYYY-MM-DD): voting runs through the day before this
+// date, and sign-ups open automatically on this date.
+const DEFAULT_SIGNUPS_START_DATE = '2026-11-07';
+
 function defaultData() {
   return {
-    potluckPhase: 'voting', // 'voting' | 'signup'
+    event: {
+      dateLabel: 'Thursday, November 26, 2026',
+      // Placeholder time (3:00 PM) until the organizer confirms the real
+      // one on the dashboard — see `timeConfirmed`.
+      dateTime: '2026-11-26T15:00:00',
+      timeConfirmed: false,
+      address: '108 North 200th Street, Shoreline, WA 98133',
+    },
+    // 'auto' follows the voting -> sign-up schedule below. The dashboard
+    // can override it at any time with 'manual-voting' / 'manual-signup',
+    // and switch back to 'auto' whenever it wants.
+    potluckPhaseMode: 'auto',
+    signupsStartDate: DEFAULT_SIGNUPS_START_DATE,
     families: [],
     dishes: [
       { category: 'Appetizer', itemName: 'Deviled eggs' },
@@ -48,6 +64,28 @@ function defaultData() {
 
 let cache = null;
 
+// Fills in fields added after someone's data.json was first created, so an
+// older file on disk doesn't crash a newer version of the app. Returns true
+// if anything was added (caller should persist it).
+function migrate(data) {
+  let dirty = false;
+  if (!data.event) {
+    data.event = defaultData().event;
+    dirty = true;
+  }
+  if (!data.potluckPhaseMode) {
+    // Preserve whatever phase was already set manually before this field
+    // existed, so an event already underway doesn't silently jump schedules.
+    data.potluckPhaseMode = data.potluckPhase === 'signup' ? 'manual-signup' : 'auto';
+    dirty = true;
+  }
+  if (!data.signupsStartDate) {
+    data.signupsStartDate = DEFAULT_SIGNUPS_START_DATE;
+    dirty = true;
+  }
+  return dirty;
+}
+
 function load() {
   if (cache) return cache;
   if (!fs.existsSync(DATA_DIR)) {
@@ -63,8 +101,8 @@ function load() {
   } catch (e) {
     console.error('Failed to read data.json, starting fresh:', e.message);
     cache = defaultData();
-    save(cache);
   }
+  if (migrate(cache)) save(cache);
   return cache;
 }
 
@@ -79,4 +117,23 @@ function nextId(data, collection) {
   return id;
 }
 
-module.exports = { load, save, nextId, DATA_FILE };
+// YYYY-MM-DD for `date`, as seen in the Pacific timezone (where the dinner
+// actually is) regardless of what timezone the server happens to run in.
+function pacificDateString(date = new Date()) {
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'America/Los_Angeles',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(date);
+}
+
+// 'voting' or 'signup', derived from the schedule unless the dashboard has
+// forced one or the other.
+function computePotluckPhase(data) {
+  if (data.potluckPhaseMode === 'manual-voting') return 'voting';
+  if (data.potluckPhaseMode === 'manual-signup') return 'signup';
+  return pacificDateString() >= data.signupsStartDate ? 'signup' : 'voting';
+}
+
+module.exports = { load, save, nextId, DATA_FILE, computePotluckPhase, pacificDateString };
