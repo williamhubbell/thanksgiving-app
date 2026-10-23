@@ -37,6 +37,16 @@
       ],
       "notes": "",
       "createdAt": "2026-10-23T16:01:36.783Z"
+    },
+    {
+      "id": 3,
+      "familyName": "Theodora Hubbell",
+      "attending": "yes",
+      "members": [
+        "Me"
+      ],
+      "notes": "",
+      "createdAt": "2026-10-23T16:11:17.501Z"
     }
   ],
   "dishes": [
@@ -367,7 +377,7 @@
     }
   ],
   "nextIds": {
-    "families": 3,
+    "families": 4,
     "dishes": 22,
     "gameCategories": 5,
     "gameSignups": 2,
