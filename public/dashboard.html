@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Dashboard — Thanksgiving</title>
+<title>Hubbell Thanksgiving — Dashboard</title>
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -19,12 +19,25 @@
   </div>
 
   <div class="card">
+    <h2>Event details</h2>
+    <p class="hint">The date is set — Thursday, November 26, 2026. Add the time once it's decided (guests will see a full countdown instead of just a day count), and keep the address up to date.</p>
+    <label for="eventTimeInput">Dinner time</label>
+    <input type="time" id="eventTimeInput" />
+    <label class="checkbox-row"><input type="checkbox" id="eventTimeConfirmed" /> Time is confirmed — show guests the full countdown</label>
+    <label for="eventAddressInput">Address</label>
+    <input type="text" id="eventAddressInput" />
+    <button class="btn secondary full-width" id="saveEventBtn" type="button">Save event details</button>
+  </div>
+
+  <div class="card">
     <h2>Potluck phase</h2>
-    <p class="hint">While voting is open, guests upvote/downvote dishes instead of claiming them. Once you open sign-ups, voting locks and guests claim dishes to bring (highest-ranked dishes sit at the top of each category).</p>
+    <p class="hint">By default this follows the schedule automatically — voting through Nov 6, sign-ups starting Nov 7 — but you can force it open/closed early and switch back to automatic anytime.</p>
+    <p class="hint" id="phaseStatusLine"></p>
     <div class="toggle-row">
-      <button class="btn secondary" id="phaseVotingBtn" type="button">🗳️ Voting open</button>
-      <button class="btn secondary" id="phaseSignupBtn" type="button">✅ Sign-ups open</button>
+      <button class="btn secondary" id="phaseVotingBtn" type="button">🗳️ Force voting open</button>
+      <button class="btn secondary" id="phaseSignupBtn" type="button">✅ Force sign-ups open</button>
     </div>
+    <button class="btn secondary full-width" id="phaseAutoBtn" type="button">🔄 Use automatic schedule</button>
   </div>
 
   <div class="card">
