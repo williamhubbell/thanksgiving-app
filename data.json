@@ -383,6 +383,16 @@
       ],
       "claimedBy": null,
       "createdAt": "2026-10-23T16:56:28.101Z"
+    },
+    {
+      "id": 23,
+      "category": "Main",
+      "itemName": "Waldorf Salad",
+      "suggested": false,
+      "upvotes": [],
+      "downvotes": [],
+      "claimedBy": null,
+      "createdAt": "2026-10-23T17:55:29.040Z"
     }
   ],
   "gameCategories": [
@@ -495,7 +505,7 @@
   ],
   "nextIds": {
     "families": 8,
-    "dishes": 23,
+    "dishes": 24,
     "gameCategories": 5,
     "gameSignups": 7,
     "photos": 9
