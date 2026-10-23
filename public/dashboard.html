@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Dashboard — Thanksgiving</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>🦃 Dashboard</h1>
+    <p>Everything in one place — this page isn't linked from the main site, so keep its link to yourself.</p>
+  </header>
+
+  <div class="card">
+    <h2>At a glance</h2>
+    <div class="summary-row" id="summaryPills"></div>
+  </div>
+
+  <div class="card">
+    <h2>Potluck phase</h2>
+    <p class="hint">While voting is open, guests upvote/downvote dishes instead of claiming them. Once you open sign-ups, voting locks and guests claim dishes to bring (highest-ranked dishes sit at the top of each category).</p>
+    <div class="toggle-row">
+      <button class="btn secondary" id="phaseVotingBtn" type="button">🗳️ Voting open</button>
+      <button class="btn secondary" id="phaseSignupBtn" type="button">✅ Sign-ups open</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Families</h2>
+    <div id="familyTable"></div>
+  </div>
+
+  <div class="card">
+    <h2>Potluck dishes</h2>
+    <div id="dishTable"></div>
+    <h3>Add a dish</h3>
+    <div class="add-row">
+      <select id="newDishCategory">
+        <option>Appetizer</option>
+        <option>Side</option>
+        <option>Main</option>
+        <option>Dessert</option>
+        <option>Drinks</option>
+        <option>Other</option>
+      </select>
+      <input type="text" id="newDishName" placeholder="e.g. Pecan pie" />
+    </div>
+    <button class="btn secondary" id="addDishBtn" type="button">Add dish</button>
+  </div>
+
+  <div class="card">
+    <h2>Games</h2>
+    <div id="gameTable"></div>
+    <h3>Add a game category</h3>
+    <div class="add-row">
+      <input type="text" id="newCatName" placeholder="Name, e.g. Charades" />
+      <input type="text" id="newCatDesc" placeholder="Short description (optional)" />
+    </div>
+    <button class="btn secondary" id="addCatBtn" type="button">Add category</button>
+  </div>
+
+  <p class="footer-note"><a href="/">Back to the shared planner</a></p>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="dashboard.js"></script>
+</body>
+</html>
