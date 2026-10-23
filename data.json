@@ -288,11 +288,10 @@
       "claimedBy": null,
       "upvotes": [
         "Ivana",
-        "Ani Shauck"
-      ],
-      "downvotes": [
+        "Ani Shauck",
         "Debbie"
       ],
+      "downvotes": [],
       "suggested": true,
       "createdAt": "2026-10-23T05:45:49.739Z",
       "category": "Drinks",
