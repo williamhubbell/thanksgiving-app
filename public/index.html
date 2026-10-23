@@ -110,21 +110,12 @@
   <!-- Photos -->
   <section class="panel" id="panel-photos">
     <div class="card">
-      <h2>Add a photo</h2>
-      <p class="hint">From today, or any Thanksgiving past — share it here for everyone to see.</p>
-      <label for="photoFile">Choose a photo</label>
-      <input type="file" id="photoFile" accept="image/*" />
-      <label for="photoYear">Year (or just "this year")</label>
-      <input type="text" id="photoYear" placeholder="e.g. 2026" />
-      <label for="photoCaption">Caption (optional)</label>
-      <input type="text" id="photoCaption" placeholder="e.g. The whole crew before dinner" />
-      <button class="btn full-width" id="uploadPhotoBtn" type="button">Upload photo</button>
-      <p class="hint" id="uploadStatus"></p>
-    </div>
-
-    <div class="card">
-      <h2>Photo gallery</h2>
+      <h2>Thanksgiving photos</h2>
+      <p class="hint">From today, or any year past — the wall is open to everyone.</p>
       <div id="photoGallery"></div>
+      <label class="btn full-width" for="photoFile">📷 Share to the wall</label>
+      <input type="file" id="photoFile" accept="image/*" multiple class="visually-hidden" />
+      <p class="hint" id="uploadStatus"></p>
     </div>
   </section>
 
