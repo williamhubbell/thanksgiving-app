@@ -455,33 +455,29 @@
     });
   }
 
-  document.getElementById('uploadPhotoBtn').addEventListener('click', async () => {
+  document.getElementById('photoFile').addEventListener('change', async (e) => {
     const name = requireName();
-    if (!name) return;
-    const fileInput = document.getElementById('photoFile');
-    const file = fileInput.files && fileInput.files[0];
-    if (!file) return toast('Choose a photo first');
-    const year = document.getElementById('photoYear').value.trim() || 'Past Thanksgivings';
-    const caption = document.getElementById('photoCaption').value.trim();
-    const statusEl = document.getElementById('uploadStatus');
-    const btn = document.getElementById('uploadPhotoBtn');
-    btn.disabled = true;
-    statusEl.textContent = 'Preparing photo…';
-    try {
-      const dataUrl = await resizeImageForUpload(file);
-      statusEl.textContent = 'Uploading…';
-      await api('POST', '/api/photos', { year, caption, uploadedBy: name, dataUrl });
-      fileInput.value = '';
-      document.getElementById('photoCaption').value = '';
-      statusEl.textContent = '';
-      toast('Photo added!');
-      await refresh();
-    } catch (err) {
-      statusEl.textContent = '';
-      toast(err.message);
-    } finally {
-      btn.disabled = false;
+    const files = Array.from(e.target.files || []);
+    if (!name || !files.length) {
+      e.target.value = '';
+      return;
     }
+    const statusEl = document.getElementById('uploadStatus');
+    let uploaded = 0;
+    for (const file of files) {
+      statusEl.textContent = files.length > 1 ? `Uploading ${uploaded + 1} of ${files.length}…` : 'Uploading…';
+      try {
+        const dataUrl = await resizeImageForUpload(file);
+        await api('POST', '/api/photos', { uploadedBy: name, dataUrl });
+        uploaded++;
+      } catch (err) {
+        toast(err.message);
+      }
+    }
+    e.target.value = '';
+    statusEl.textContent = '';
+    if (uploaded) toast(uploaded === 1 ? 'Photo added!' : `${uploaded} photos added to the wall!`);
+    await refresh();
   });
 
   function openLightbox(url) {
