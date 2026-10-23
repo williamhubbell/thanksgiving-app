@@ -82,6 +82,17 @@
       ],
       "notes": "",
       "createdAt": "2026-10-23T17:01:55.721Z"
+    },
+    {
+      "id": 7,
+      "familyName": "Dennis",
+      "attending": "yes",
+      "members": [
+        "Demetra",
+        "Ryan"
+      ],
+      "notes": "",
+      "createdAt": "2026-10-23T17:52:17.269Z"
     }
   ],
   "dishes": [
@@ -476,7 +487,7 @@
     }
   ],
   "nextIds": {
-    "families": 7,
+    "families": 8,
     "dishes": 23,
     "gameCategories": 5,
     "gameSignups": 7,
