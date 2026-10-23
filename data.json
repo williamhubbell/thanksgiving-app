@@ -134,7 +134,9 @@
     {
       "id": 7,
       "claimedBy": null,
-      "upvotes": [],
+      "upvotes": [
+        "Debbie"
+      ],
       "downvotes": [],
       "suggested": true,
       "createdAt": "2026-10-23T05:45:49.739Z",
