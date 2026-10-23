@@ -57,7 +57,7 @@
     return data;
   }
 
-  let state = { families: [], dishes: [], gameCategories: [], summary: {}, potluckPhase: 'voting', event: {} };
+  let state = { families: [], dishes: [], gameCategories: [], photos: [], summary: {}, potluckPhase: 'voting', event: {} };
   let lastHeroNum = null;
   let draftMembers = [];
   let draftLoadedFor = null;
@@ -72,6 +72,7 @@
     renderRsvp();
     renderPotluck();
     renderGames();
+    renderPhotos();
   }
 
   // ---- Event header + countdown ----
@@ -395,6 +396,135 @@
               : `<button class="btn small" onclick="__joinGame(${c.id})">Join</button>`
           }
         </div>`;
+      })
+      .join('');
+  }
+
+  // ---- Photos ----
+
+  // Resizes/compresses an image in the browser before upload, so phone
+  // photos (often several MB) comfortably clear the server's ~1.3MB limit
+  // and upload fast even on spotty Thanksgiving-day wifi.
+  function resizeImageForUpload(file, maxDim, startQuality) {
+    maxDim = maxDim || 1400;
+    startQuality = startQuality || 0.85;
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = () => reject(new Error('Could not read that file'));
+      reader.onload = () => {
+        const img = new Image();
+        img.onerror = () => reject(new Error('That file does not look like an image'));
+        img.onload = () => {
+          let { width, height } = img;
+          if (width > maxDim || height > maxDim) {
+            if (width >= height) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            } else {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+
+          const tryQuality = (q) => {
+            canvas.toBlob(
+              (blob) => {
+                if (!blob) return reject(new Error('Could not process that image'));
+                if (blob.size > 900 * 1024 && q > 0.35) {
+                  tryQuality(q - 0.15);
+                  return;
+                }
+                const fr = new FileReader();
+                fr.onload = () => resolve(fr.result);
+                fr.onerror = () => reject(new Error('Could not process that image'));
+                fr.readAsDataURL(blob);
+              },
+              'image/jpeg',
+              q
+            );
+          };
+          tryQuality(startQuality);
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  document.getElementById('uploadPhotoBtn').addEventListener('click', async () => {
+    const name = requireName();
+    if (!name) return;
+    const fileInput = document.getElementById('photoFile');
+    const file = fileInput.files && fileInput.files[0];
+    if (!file) return toast('Choose a photo first');
+    const year = document.getElementById('photoYear').value.trim() || 'Past Thanksgivings';
+    const caption = document.getElementById('photoCaption').value.trim();
+    const statusEl = document.getElementById('uploadStatus');
+    const btn = document.getElementById('uploadPhotoBtn');
+    btn.disabled = true;
+    statusEl.textContent = 'Preparing photo…';
+    try {
+      const dataUrl = await resizeImageForUpload(file);
+      statusEl.textContent = 'Uploading…';
+      await api('POST', '/api/photos', { year, caption, uploadedBy: name, dataUrl });
+      fileInput.value = '';
+      document.getElementById('photoCaption').value = '';
+      statusEl.textContent = '';
+      toast('Photo added!');
+      await refresh();
+    } catch (err) {
+      statusEl.textContent = '';
+      toast(err.message);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  function openLightbox(url) {
+    document.getElementById('lightboxImg').src = url;
+    document.getElementById('lightbox').classList.add('show');
+  }
+  window.__openPhoto = openLightbox;
+
+  function renderPhotos() {
+    const gallery = document.getElementById('photoGallery');
+    if (!state.photos || !state.photos.length) {
+      gallery.innerHTML = '<p class="hint">No photos yet — be the first to add one!</p>';
+      return;
+    }
+    const groups = {};
+    const order = [];
+    state.photos.forEach((p) => {
+      const key = p.year || 'Past Thanksgivings';
+      if (!groups[key]) {
+        groups[key] = [];
+        order.push(key);
+      }
+      groups[key].push(p);
+    });
+    order.sort((a, b) => {
+      const an = /^\d{4}$/.test(a);
+      const bn = /^\d{4}$/.test(b);
+      if (an && bn) return b - a; // newest year first
+      if (an !== bn) return an ? -1 : 1; // numeric years before labels like "Past Thanksgivings"
+      return a.localeCompare(b);
+    });
+    gallery.innerHTML = order
+      .map((key) => {
+        const items = groups[key]
+          .map(
+            (p) => `
+          <div class="photo-thumb" onclick="__openPhoto('${p.url.replace(/'/g, '%27')}')">
+            <img src="${p.url}" alt="${escapeHtml(p.caption || key)}" loading="lazy" />
+            ${p.caption ? `<div class="photo-cap">${escapeHtml(p.caption)}</div>` : ''}
+          </div>`
+          )
+          .join('');
+        return `<h3>${escapeHtml(key)}</h3><div class="photo-grid">${items}</div>`;
       })
       .join('');
   }
