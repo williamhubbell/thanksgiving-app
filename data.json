@@ -307,6 +307,16 @@
       "downvotes": [],
       "claimedBy": null,
       "createdAt": "2026-10-23T16:06:29.143Z"
+    },
+    {
+      "id": 22,
+      "category": "Main",
+      "itemName": "Spinakopita",
+      "suggested": false,
+      "upvotes": [],
+      "downvotes": [],
+      "claimedBy": null,
+      "createdAt": "2026-10-23T16:56:28.101Z"
     }
   ],
   "gameCategories": [
@@ -419,7 +429,7 @@
   ],
   "nextIds": {
     "families": 5,
-    "dishes": 22,
+    "dishes": 23,
     "gameCategories": 5,
     "gameSignups": 5,
     "photos": 9
