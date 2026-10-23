@@ -57,19 +57,72 @@
     return data;
   }
 
-  let state = { families: [], dishes: [], gameCategories: [], summary: {}, potluckPhase: 'voting' };
+  let state = { families: [], dishes: [], gameCategories: [], summary: {}, potluckPhase: 'voting', event: {} };
   let lastHeroNum = null;
   let draftMembers = [];
   let draftLoadedFor = null;
+  let countdownTarget = null;
+  let countdownConfirmed = false;
 
   async function refresh() {
     state = await api('GET', '/api/state');
+    renderEventHeader();
     renderHero();
     renderKnownNames();
     renderRsvp();
     renderPotluck();
     renderGames();
   }
+
+  // ---- Event header + countdown ----
+  function renderEventHeader() {
+    const ev = state.event || {};
+    if (ev.dateLabel) document.getElementById('eventDateLabel').textContent = ev.dateLabel;
+    if (ev.address) {
+      document.getElementById('eventAddress').textContent = ev.address;
+      document.getElementById('eventAddressLink').href =
+        'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(ev.address);
+    }
+    countdownTarget = ev.dateTime ? new Date(ev.dateTime) : null;
+    countdownConfirmed = !!ev.timeConfirmed;
+    tickCountdown();
+  }
+
+  function tickCountdown() {
+    const row = document.getElementById('countdownRow');
+    const sub = document.getElementById('countdownSub');
+    if (!countdownTarget || isNaN(countdownTarget.getTime())) {
+      row.innerHTML = '';
+      sub.textContent = '';
+      return;
+    }
+    const diffMs = countdownTarget.getTime() - Date.now();
+    if (diffMs <= 0) {
+      row.innerHTML = '<div class="cd-unit wide"><div class="cd-num">🦃</div><div class="cd-lbl">Happy Thanksgiving!</div></div>';
+      sub.textContent = '';
+      return;
+    }
+    const totalSeconds = Math.floor(diffMs / 1000);
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const mins = Math.floor((totalSeconds % 3600) / 60);
+    const secs = totalSeconds % 60;
+
+    if (countdownConfirmed) {
+      row.innerHTML = `
+        <div class="cd-unit"><div class="cd-num">${days}</div><div class="cd-lbl">Days</div></div>
+        <div class="cd-unit"><div class="cd-num">${hours}</div><div class="cd-lbl">Hours</div></div>
+        <div class="cd-unit"><div class="cd-num">${mins}</div><div class="cd-lbl">Min</div></div>
+        <div class="cd-unit"><div class="cd-num">${secs}</div><div class="cd-lbl">Sec</div></div>`;
+      sub.textContent = 'until dinner!';
+    } else {
+      row.innerHTML = `<div class="cd-unit wide"><div class="cd-num">${days}</div><div class="cd-lbl">${
+        days === 1 ? 'Day to go' : 'Days to go'
+      }</div></div>`;
+      sub.textContent = 'Exact time still TBD — stay tuned';
+    }
+  }
+  setInterval(tickCountdown, 1000);
 
   function renderHero() {
     const n = state.summary.totalHeadcountYes || 0;
@@ -239,9 +292,10 @@
   function renderPotluck() {
     const myName = currentName().toLowerCase();
     const voting = state.potluckPhase === 'voting';
+    const note = state.potluckScheduleNote || '';
     document.getElementById('phaseBanner').textContent = voting
-      ? '🗳️ Voting is open — upvote what you want on the menu. Sign-ups open once voting ends.'
-      : '✅ Sign-ups are open — claim a dish below!';
+      ? `🗳️ Voting is open — up or down vote each dish (one vote each, no stacking). ${note}`
+      : `✅ Sign-ups are open — claim a dish below! ${note}`;
 
     const categories = ['Appetizer', 'Side', 'Main', 'Dessert', 'Drinks', 'Other'];
     const byCategory = {};
