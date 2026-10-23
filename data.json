@@ -213,7 +213,9 @@
       "category": "Dessert",
       "itemName": "Bugatsa",
       "suggested": false,
-      "upvotes": [],
+      "upvotes": [
+        "William"
+      ],
       "downvotes": [],
       "claimedBy": null,
       "createdAt": "2026-10-23T15:55:35.304Z"
