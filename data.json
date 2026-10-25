@@ -99,10 +99,12 @@
       "familyName": "Billing",
       "attending": "yes",
       "members": [
-        "Cutter Buchea"
+        "Cutter",
+        "Lauren"
       ],
       "notes": "",
-      "createdAt": "2026-10-25T01:45:41.785Z"
+      "createdAt": "2026-10-25T01:45:41.785Z",
+      "updatedAt": "2026-10-25T01:46:13.838Z"
     }
   ],
   "dishes": [
