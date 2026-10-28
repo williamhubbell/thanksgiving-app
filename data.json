@@ -2,7 +2,7 @@
   "event": {
     "dateLabel": "Thursday, November 26, 2026",
     "dateTime": "2026-11-26T15:00:00",
-    "timeConfirmed": false,
+    "timeConfirmed": true,
     "address": "108 North 200th Street, Shoreline, WA 98133"
   },
   "potluckPhaseMode": "auto",
