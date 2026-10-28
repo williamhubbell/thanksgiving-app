@@ -72,18 +72,6 @@
       "updatedAt": "2026-10-23T17:01:42.320Z"
     },
     {
-      "id": 6,
-      "familyName": "Shauck",
-      "attending": "yes",
-      "members": [
-        "Greyson Shauck",
-        "Amanda Shauck",
-        "Ani Shauck"
-      ],
-      "notes": "",
-      "createdAt": "2026-10-23T17:01:55.721Z"
-    },
-    {
       "id": 7,
       "familyName": "Dennis",
       "attending": "yes",
