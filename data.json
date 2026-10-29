@@ -132,7 +132,9 @@
         "Debbie",
         "Ani Shauck"
       ],
-      "downvotes": [],
+      "downvotes": [
+        "Pierce Keich"
+      ],
       "suggested": true,
       "createdAt": "2026-10-23T05:45:49.739Z",
       "category": "Appetizer",
@@ -323,7 +325,9 @@
       "itemName": "BBQ pork",
       "suggested": false,
       "upvotes": [],
-      "downvotes": [],
+      "downvotes": [
+        "Pierce Keich"
+      ],
       "claimedBy": null,
       "createdAt": "2026-10-23T15:54:04.061Z"
     },
@@ -392,7 +396,9 @@
         "Debbie",
         "Niko"
       ],
-      "downvotes": [],
+      "downvotes": [
+        "Pierce Keich"
+      ],
       "claimedBy": null,
       "createdAt": "2026-10-23T16:06:29.143Z"
     },
