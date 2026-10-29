@@ -105,6 +105,17 @@
       ],
       "notes": "",
       "createdAt": "2026-10-29T01:24:07.885Z"
+    },
+    {
+      "id": 10,
+      "familyName": "Schober",
+      "attending": "yes",
+      "members": [
+        "Steven",
+        "Milena"
+      ],
+      "notes": "",
+      "createdAt": "2026-10-29T01:41:59.246Z"
     }
   ],
   "dishes": [
@@ -672,7 +683,7 @@
     }
   ],
   "nextIds": {
-    "families": 10,
+    "families": 11,
     "dishes": 27,
     "gameCategories": 5,
     "gameSignups": 13,
