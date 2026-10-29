@@ -162,7 +162,9 @@
         "Niko",
         "Demetra"
       ],
-      "downvotes": [],
+      "downvotes": [
+        "Pierce Keich"
+      ],
       "suggested": true,
       "createdAt": "2026-10-23T05:45:49.739Z",
       "category": "Side",
