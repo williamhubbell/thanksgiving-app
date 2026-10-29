@@ -559,6 +559,12 @@
       "guestName": "Pierce Keich",
       "categoryId": 2,
       "createdAt": "2026-10-29T01:27:42.617Z"
+    },
+    {
+      "id": 9,
+      "guestName": "Pierce Keich",
+      "categoryId": 4,
+      "createdAt": "2026-10-29T01:27:54.306Z"
     }
   ],
   "photos": [
@@ -657,7 +663,7 @@
     "families": 10,
     "dishes": 27,
     "gameCategories": 5,
-    "gameSignups": 9,
+    "gameSignups": 10,
     "photos": 11
   }
 }
