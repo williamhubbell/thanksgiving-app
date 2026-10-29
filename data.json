@@ -117,7 +117,9 @@
         "Debbie",
         "Lauren Billing"
       ],
-      "downvotes": [],
+      "downvotes": [
+        "Pierce Keich"
+      ],
       "suggested": true,
       "createdAt": "2026-10-23T05:45:49.739Z",
       "category": "Appetizer",
@@ -390,7 +392,9 @@
         "Debbie",
         "Niko"
       ],
-      "downvotes": [],
+      "downvotes": [
+        "Pierce Keich"
+      ],
       "claimedBy": null,
       "createdAt": "2026-10-23T16:06:29.143Z"
     },
