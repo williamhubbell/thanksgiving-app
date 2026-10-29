@@ -174,7 +174,8 @@
         "Ivana",
         "Ani Shauck",
         "Niko",
-        "William"
+        "William",
+        "Pierce Keich"
       ],
       "downvotes": [],
       "suggested": true,
@@ -205,7 +206,9 @@
         "Demetra",
         "William"
       ],
-      "downvotes": [],
+      "downvotes": [
+        "Pierce Keich"
+      ],
       "suggested": true,
       "createdAt": "2026-10-23T05:45:49.739Z",
       "category": "Side",
