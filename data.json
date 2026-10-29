@@ -489,7 +489,9 @@
       "category": "Main",
       "itemName": "Ham",
       "suggested": false,
-      "upvotes": [],
+      "upvotes": [
+        "Dominic keich"
+      ],
       "downvotes": [],
       "claimedBy": null,
       "createdAt": "2026-10-29T01:26:31.985Z"
