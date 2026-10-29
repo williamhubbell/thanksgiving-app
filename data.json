@@ -368,7 +368,8 @@
         "Debbie"
       ],
       "downvotes": [
-        "William"
+        "William",
+        "Pierce Keich"
       ],
       "claimedBy": null,
       "createdAt": "2026-10-23T15:54:49.615Z"
@@ -441,9 +442,7 @@
       "upvotes": [
         "Demetra"
       ],
-      "downvotes": [
-        "Pierce Keich"
-      ],
+      "downvotes": [],
       "claimedBy": null,
       "createdAt": "2026-10-23T17:55:29.040Z"
     },
