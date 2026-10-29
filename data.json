@@ -269,7 +269,8 @@
       "upvotes": [
         "Ivana",
         "Ani Shauck",
-        "Demetra"
+        "Demetra",
+        "Pierce Keich"
       ],
       "downvotes": [],
       "suggested": true,
@@ -442,7 +443,9 @@
       "upvotes": [
         "Demetra"
       ],
-      "downvotes": [],
+      "downvotes": [
+        "Pierce Keich"
+      ],
       "claimedBy": null,
       "createdAt": "2026-10-23T17:55:29.040Z"
     },
