@@ -180,7 +180,8 @@
         "Ani Shauck",
         "Niko",
         "William",
-        "Pierce Keich"
+        "Pierce Keich",
+        "Dominic keich"
       ],
       "downvotes": [],
       "suggested": true,
@@ -280,7 +281,9 @@
     {
       "id": 12,
       "claimedBy": null,
-      "upvotes": [],
+      "upvotes": [
+        "Pierce Keich"
+      ],
       "downvotes": [],
       "suggested": true,
       "createdAt": "2026-10-23T05:45:49.739Z",
