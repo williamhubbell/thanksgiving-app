@@ -337,7 +337,9 @@
       "category": "Appetizer",
       "itemName": "BBQ pork",
       "suggested": false,
-      "upvotes": [],
+      "upvotes": [
+        "Dominic keich"
+      ],
       "downvotes": [
         "Pierce Keich"
       ],
