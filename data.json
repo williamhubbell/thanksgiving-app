@@ -482,6 +482,16 @@
       ],
       "claimedBy": null,
       "createdAt": "2026-10-23T17:56:40.204Z"
+    },
+    {
+      "id": 25,
+      "category": "Main",
+      "itemName": "Ham",
+      "suggested": false,
+      "upvotes": [],
+      "downvotes": [],
+      "claimedBy": null,
+      "createdAt": "2026-10-29T01:26:31.985Z"
     }
   ],
   "gameCategories": [
@@ -612,7 +622,7 @@
   ],
   "nextIds": {
     "families": 10,
-    "dishes": 25,
+    "dishes": 26,
     "gameCategories": 5,
     "gameSignups": 7,
     "photos": 11
