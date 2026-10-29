@@ -571,6 +571,12 @@
       "guestName": "Dominic Keich",
       "categoryId": 2,
       "createdAt": "2026-10-29T01:28:24.552Z"
+    },
+    {
+      "id": 12,
+      "guestName": "Dominic Keich",
+      "categoryId": 1,
+      "createdAt": "2026-10-29T01:28:28.396Z"
     }
   ],
   "photos": [
@@ -669,7 +675,7 @@
     "families": 10,
     "dishes": 27,
     "gameCategories": 5,
-    "gameSignups": 12,
+    "gameSignups": 13,
     "photos": 11
   }
 }
