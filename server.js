@@ -101,6 +101,7 @@ function publicState(data) {
     potluckPhase: computePotluckPhase(data),
     potluckPhaseMode: data.potluckPhaseMode,
     potluckScheduleNote: scheduleNote(data),
+    signupsStartDate: data.signupsStartDate,
     families: data.families,
     photos,
     dishes: sortedDishes.map((d) => ({
