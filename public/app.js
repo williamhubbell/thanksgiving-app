@@ -85,7 +85,7 @@
       const d = new Date(ev.dateTime);
       if (!isNaN(d.getTime())) {
         const timeStr = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-        timeEl.textContent = `🕒 Dinner starts at ${timeStr}`;
+        timeEl.textContent = `🕒 Thanksgiving starts at ${timeStr}`;
       } else {
         timeEl.textContent = '';
       }
