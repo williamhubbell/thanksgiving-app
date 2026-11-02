@@ -57,6 +57,13 @@ header.top .site-date {
   font-size: 1rem;
 }
 
+header.top .site-time {
+  font-weight: 800;
+  color: var(--orange-dark);
+  font-size: 1.05rem;
+  margin-top: 2px;
+}
+
 header.top .site-address {
   margin-top: 2px;
   font-size: 0.85rem;
@@ -380,6 +387,37 @@ a { color: var(--orange-dark); }
   font-size: 0.82rem;
   opacity: 0.9;
   margin-top: 4px;
+}
+
+.potluck-banner {
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  text-align: center;
+  margin-bottom: 16px;
+  box-shadow: var(--card-shadow);
+  background: var(--cream-dark);
+  color: var(--brown);
+}
+.potluck-banner.voting {
+  background: var(--orange);
+  color: #fff;
+}
+.potluck-banner.open {
+  background: var(--green);
+  color: #fff;
+}
+.potluck-banner-row {
+  font-weight: 700;
+  font-size: 1rem;
+}
+.potluck-banner-row .big-num {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+.potluck-banner-sub {
+  font-size: 0.82rem;
+  opacity: 0.9;
+  margin-top: 6px;
 }
 
 .member-chips {
