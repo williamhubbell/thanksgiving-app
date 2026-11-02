@@ -68,6 +68,7 @@
     state = await api('GET', '/api/state');
     renderEventHeader();
     renderHero();
+    renderPotluckBanner();
     renderKnownNames();
     renderRsvp();
     renderPotluck();
@@ -79,6 +80,18 @@
   function renderEventHeader() {
     const ev = state.event || {};
     if (ev.dateLabel) document.getElementById('eventDateLabel').textContent = ev.dateLabel;
+    const timeEl = document.getElementById('eventTimeLabel');
+    if (ev.dateTime) {
+      const d = new Date(ev.dateTime);
+      if (!isNaN(d.getTime())) {
+        const timeStr = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+        timeEl.textContent = `🕒 Dinner starts at ${timeStr}`;
+      } else {
+        timeEl.textContent = '';
+      }
+    } else {
+      timeEl.textContent = '';
+    }
     if (ev.address) {
       document.getElementById('eventAddress').textContent = ev.address;
       document.getElementById('eventAddressLink').href =
@@ -138,6 +151,37 @@
     const maybeN = state.summary.totalHeadcountMaybe || 0;
     document.getElementById('heroSub').textContent =
       `${state.summary.attendingFamiliesCount || 0} families confirmed` + (maybeN ? ` · ${maybeN} more maybe joining` : '');
+  }
+
+  // ---- Potluck voting countdown (shown on every tab, not just Potluck) ----
+  function renderPotluckBanner() {
+    const banner = document.getElementById('potluckBanner');
+    const row = document.getElementById('potluckBannerRow');
+    const sub = document.getElementById('potluckBannerSub');
+    if (!banner) return;
+    const voting = state.potluckPhase === 'voting';
+    banner.classList.remove('voting', 'open');
+    banner.classList.add(voting ? 'voting' : 'open');
+
+    if (voting) {
+      let phrase = 'closes soon';
+      if (state.signupsStartDate) {
+        const target = new Date(state.signupsStartDate + 'T00:00:00-08:00');
+        const days = Math.ceil((target.getTime() - Date.now()) / 86400000);
+        phrase =
+          days > 1
+            ? `closes in <span class="big-num">${days} days</span>`
+            : days === 1
+            ? `closes in <span class="big-num">1 day</span>`
+            : `closes <span class="big-num">today</span>`;
+      }
+      row.innerHTML = `🗳️ Dish voting ${phrase}`;
+      sub.textContent =
+        'Vote for your favorites on the Potluck tab — on November 7, the most popular dishes open up for sign-ups.';
+    } else {
+      row.innerHTML = `✅ Sign-ups are open for the most popular dishes!`;
+      sub.textContent = state.potluckScheduleNote || 'Head to the Potluck tab to claim a dish.';
+    }
   }
 
   function renderKnownNames() {
