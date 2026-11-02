@@ -602,6 +602,12 @@
       "guestName": "Dominic Keich",
       "categoryId": 1,
       "createdAt": "2026-10-29T01:28:28.396Z"
+    },
+    {
+      "id": 13,
+      "guestName": "Debbie",
+      "categoryId": 3,
+      "createdAt": "2026-11-02T16:14:56.808Z"
     }
   ],
   "photos": [
@@ -700,7 +706,7 @@
     "families": 12,
     "dishes": 27,
     "gameCategories": 5,
-    "gameSignups": 13,
+    "gameSignups": 14,
     "photos": 11
   }
 }
