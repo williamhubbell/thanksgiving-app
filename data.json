@@ -608,6 +608,12 @@
       "guestName": "Debbie",
       "categoryId": 3,
       "createdAt": "2026-11-02T16:14:56.808Z"
+    },
+    {
+      "id": 14,
+      "guestName": "Debbie",
+      "categoryId": 2,
+      "createdAt": "2026-11-02T16:15:02.197Z"
     }
   ],
   "photos": [
@@ -706,7 +712,7 @@
     "families": 12,
     "dishes": 27,
     "gameCategories": 5,
-    "gameSignups": 14,
+    "gameSignups": 15,
     "photos": 11
   }
 }
