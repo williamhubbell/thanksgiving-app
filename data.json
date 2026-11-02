@@ -548,6 +548,16 @@
       "downvotes": [],
       "claimedBy": null,
       "createdAt": "2026-11-02T16:31:03.142Z"
+    },
+    {
+      "id": 28,
+      "category": "Drinks",
+      "itemName": "Batch Cocktail",
+      "suggested": false,
+      "upvotes": [],
+      "downvotes": [],
+      "claimedBy": null,
+      "createdAt": "2026-11-02T16:31:17.492Z"
     }
   ],
   "gameCategories": [
@@ -726,7 +736,7 @@
   ],
   "nextIds": {
     "families": 12,
-    "dishes": 28,
+    "dishes": 29,
     "gameCategories": 5,
     "gameSignups": 16,
     "photos": 11
