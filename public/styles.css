@@ -64,6 +64,13 @@ header.top .site-time {
   margin-top: 2px;
 }
 
+header.top .site-time-sub {
+  font-weight: 600;
+  color: var(--brown-light);
+  font-size: 0.88rem;
+  margin-top: 2px;
+}
+
 header.top .site-address {
   margin-top: 2px;
   font-size: 0.85rem;
