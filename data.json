@@ -778,7 +778,7 @@
     "gameCategories": 5,
     "gameSignups": 18,
     "photos": 11,
-    "predictions": 5
+    "predictions": 7
   },
   "predictionCategories": [
     {
@@ -838,6 +838,20 @@
       "predictedPerson": "Kosta",
       "createdAt": "2026-11-03T03:37:46.050Z",
       "updatedAt": "2026-11-03T03:37:48.230Z"
+    },
+    {
+      "id": 5,
+      "categoryId": 3,
+      "guestName": "Ani Shauck",
+      "predictedPerson": "Ivana",
+      "createdAt": "2026-11-03T03:37:48.341Z"
+    },
+    {
+      "id": 6,
+      "categoryId": 5,
+      "guestName": "Ani Shauck",
+      "predictedPerson": "Lauren",
+      "createdAt": "2026-11-03T03:37:56.148Z"
     }
   ]
 }
