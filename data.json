@@ -812,8 +812,9 @@
       "id": 1,
       "categoryId": 4,
       "guestName": "Ani Shauck",
-      "predictedPerson": "Amanda Shauck",
-      "createdAt": "2026-11-03T03:34:07.048Z"
+      "predictedPerson": "Mitchell",
+      "createdAt": "2026-11-03T03:34:07.048Z",
+      "updatedAt": "2026-11-03T03:37:25.523Z"
     },
     {
       "id": 2,
