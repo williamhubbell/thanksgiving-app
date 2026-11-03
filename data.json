@@ -622,12 +622,6 @@
       "createdAt": "2026-10-23T05:45:49.739Z",
       "name": "Talent Show",
       "description": "Show off a party trick, song, or skill"
-    },
-    {
-      "id": 4,
-      "createdAt": "2026-10-23T05:45:49.739Z",
-      "name": "Prediction Pool",
-      "description": "Friendly bets on the game, the turkey, who falls asleep first, etc."
     }
   ],
   "gameSignups": [
@@ -648,12 +642,6 @@
       "guestName": "Pierce Keich",
       "categoryId": 2,
       "createdAt": "2026-10-29T01:27:42.617Z"
-    },
-    {
-      "id": 9,
-      "guestName": "Pierce Keich",
-      "categoryId": 4,
-      "createdAt": "2026-10-29T01:27:54.306Z"
     },
     {
       "id": 11,
