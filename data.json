@@ -828,7 +828,8 @@
       "categoryId": 3,
       "guestName": "Debbie",
       "predictedPerson": "Ivana",
-      "createdAt": "2026-11-03T03:37:36.139Z"
+      "createdAt": "2026-11-03T03:37:36.139Z",
+      "updatedAt": "2026-11-03T03:37:38.060Z"
     }
   ]
 }
