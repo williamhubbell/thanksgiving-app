@@ -778,7 +778,7 @@
     "gameCategories": 5,
     "gameSignups": 18,
     "photos": 11,
-    "predictions": 3
+    "predictions": 4
   },
   "predictionCategories": [
     {
@@ -822,6 +822,13 @@
       "guestName": "Debbie",
       "predictedPerson": "Mike",
       "createdAt": "2026-11-03T03:37:02.853Z"
+    },
+    {
+      "id": 3,
+      "categoryId": 3,
+      "guestName": "Debbie",
+      "predictedPerson": "Ivana",
+      "createdAt": "2026-11-03T03:37:36.139Z"
     }
   ]
 }
