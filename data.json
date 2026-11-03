@@ -779,7 +779,7 @@
     "gameCategories": 5,
     "gameSignups": 18,
     "photos": 11,
-    "predictions": 14
+    "predictions": 15
   },
   "predictionCategories": [
     {
@@ -905,6 +905,13 @@
       "predictedPerson": "Lauren",
       "createdAt": "2026-11-03T05:34:51.005Z",
       "updatedAt": "2026-11-03T05:34:51.958Z"
+    },
+    {
+      "id": 14,
+      "categoryId": 4,
+      "guestName": "Will Sr.",
+      "predictedPerson": "William Sr.",
+      "createdAt": "2026-11-03T05:35:03.055Z"
     }
   ]
 }
