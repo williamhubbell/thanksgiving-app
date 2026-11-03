@@ -25,6 +25,7 @@
     renderFamilies();
     renderDishes();
     renderGames();
+    renderPredictions();
     renderPhotos();
   }
 
@@ -222,6 +223,40 @@
         <button class="btn small danger" onclick="__deleteCategory(${c.id})">✕</button>
       </div>`
       )
+      .join('');
+  }
+
+  async function deletePrediction(id) {
+    if (!confirm('Remove this prediction?')) return;
+    try {
+      await api('DELETE', `/api/predictions/${id}`);
+      toast('Removed');
+      refresh();
+    } catch (err) {
+      toast(err.message);
+    }
+  }
+  window.__deletePrediction = deletePrediction;
+
+  function renderPredictions() {
+    document.getElementById('predictionTable').innerHTML = (state.predictionCategories || [])
+      .map((cat) => {
+        const items = cat.predictions.length
+          ? cat.predictions
+              .map(
+                (p) => `
+          <div class="list-item">
+            <div class="item-main">
+              <div class="item-title">${escapeHtml(p.guestName)}</div>
+              <div class="item-sub">Picked: ${escapeHtml(p.predictedPerson)}</div>
+            </div>
+            <button class="btn small danger" onclick="__deletePrediction(${p.id})">✕</button>
+          </div>`
+              )
+              .join('')
+          : '<p class="hint">No predictions yet.</p>';
+        return `<h3>${escapeHtml(cat.name)}</h3>${items}`;
+      })
       .join('');
   }
 
