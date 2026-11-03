@@ -470,8 +470,10 @@
     container.innerHTML = (state.predictionCategories || [])
       .map((cat) => {
         const mine = cat.predictions.find((p) => p.guestName.toLowerCase() === myName);
+        const placeholder = `<option value="" disabled ${mine ? '' : 'selected'}>Tap here to select a guest</option>`;
         const optionsHtml = options.length
-          ? options
+          ? placeholder +
+            options
               .map(
                 (o) =>
                   `<option value="${escapeHtml(o)}" ${mine && mine.predictedPerson === o ? 'selected' : ''}>${escapeHtml(o)}</option>`
