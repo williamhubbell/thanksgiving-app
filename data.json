@@ -789,6 +789,35 @@
     "dishes": 29,
     "gameCategories": 5,
     "gameSignups": 18,
-    "photos": 11
-  }
+    "photos": 11,
+    "predictions": 1
+  },
+  "predictionCategories": [
+    {
+      "id": 1,
+      "name": "First to Arrive",
+      "createdAt": "2026-11-03T03:30:42.267Z"
+    },
+    {
+      "id": 2,
+      "name": "Last to Leave",
+      "createdAt": "2026-11-03T03:30:42.267Z"
+    },
+    {
+      "id": 3,
+      "name": "Best Dish",
+      "createdAt": "2026-11-03T03:30:42.267Z"
+    },
+    {
+      "id": 4,
+      "name": "First to Fall Asleep",
+      "createdAt": "2026-11-03T03:30:42.267Z"
+    },
+    {
+      "id": 5,
+      "name": "Best Dressed",
+      "createdAt": "2026-11-03T03:30:42.267Z"
+    }
+  ],
+  "predictions": []
 }
