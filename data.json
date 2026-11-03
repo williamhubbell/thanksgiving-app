@@ -779,7 +779,7 @@
     "gameCategories": 5,
     "gameSignups": 18,
     "photos": 11,
-    "predictions": 12
+    "predictions": 13
   },
   "predictionCategories": [
     {
@@ -889,6 +889,13 @@
       "guestName": "Will Sr.",
       "predictedPerson": "Dominic keich",
       "createdAt": "2026-11-03T05:34:20.917Z"
+    },
+    {
+      "id": 12,
+      "categoryId": 2,
+      "guestName": "Will Sr.",
+      "predictedPerson": "Kosta",
+      "createdAt": "2026-11-03T05:34:28.493Z"
     }
   ]
 }
