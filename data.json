@@ -153,6 +153,16 @@
       ],
       "notes": "",
       "createdAt": "2026-11-02T22:40:19.842Z"
+    },
+    {
+      "id": 14,
+      "familyName": "Macandile",
+      "attending": "yes",
+      "members": [
+        "Ken"
+      ],
+      "notes": "",
+      "createdAt": "2026-11-03T02:07:41.702Z"
     }
   ],
   "dishes": [
@@ -764,7 +774,7 @@
     }
   ],
   "nextIds": {
-    "families": 14,
+    "families": 15,
     "dishes": 29,
     "gameCategories": 5,
     "gameSignups": 18,
