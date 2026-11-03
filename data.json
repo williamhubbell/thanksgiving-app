@@ -165,6 +165,20 @@
       ],
       "notes": "",
       "createdAt": "2026-11-03T03:13:03.736Z"
+    },
+    {
+      "id": 16,
+      "familyName": "Gennaios",
+      "attending": "yes",
+      "members": [
+        "Pano",
+        "Melia",
+        "Kosta",
+        "Pete",
+        "Nicoleta"
+      ],
+      "notes": "",
+      "createdAt": "2026-11-03T03:13:05.161Z"
     }
   ],
   "dishes": [
@@ -781,7 +795,7 @@
     }
   ],
   "nextIds": {
-    "families": 16,
+    "families": 17,
     "dishes": 29,
     "gameCategories": 5,
     "gameSignups": 18,
