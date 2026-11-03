@@ -87,6 +87,19 @@ function scheduleNote(data) {
   return phase === 'voting' ? 'Voting closes and sign-ups open Nov 7.' : 'Sign-ups opened automatically on Nov 7.';
 }
 
+// Every person in an attending ("yes") family's member list — the pool of
+// names guests can predict against (first to arrive, best dressed, etc.).
+function attendeeOptions(data) {
+  const names = new Set();
+  data.families
+    .filter((f) => f.attending === 'yes')
+    .forEach((f) => f.members.forEach((m) => {
+      const name = (m || '').trim();
+      if (name) names.add(name);
+    }));
+  return [...names].sort((a, b) => a.localeCompare(b));
+}
+
 function publicState(data) {
   const attending = data.families.filter((f) => f.attending === 'yes');
   const maybe = data.families.filter((f) => f.attending === 'maybe');
@@ -118,6 +131,13 @@ function publicState(data) {
       ...cat,
       signups: data.gameSignups.filter((s) => s.categoryId === cat.id).map((s) => s.guestName),
     })),
+    predictionCategories: (data.predictionCategories || []).map((cat) => ({
+      ...cat,
+      predictions: data.predictions
+        .filter((p) => p.categoryId === cat.id)
+        .map((p) => ({ id: p.id, guestName: p.guestName, predictedPerson: p.predictedPerson })),
+    })),
+    predictionOptions: attendeeOptions(data),
     summary: {
       familiesCount: data.families.length,
       attendingFamiliesCount: attending.length,
@@ -394,6 +414,48 @@ route('DELETE', '/api/game-categories/:id', async (req, res, params) => {
   const data = await load();
   data.gameCategories = data.gameCategories.filter((c) => c.id !== id);
   data.gameSignups = data.gameSignups.filter((s) => s.categoryId !== id);
+  await save(data);
+  sendJson(res, 200, { ok: true });
+});
+
+// ---- Predictions ("friendly bets" — pick a name from the RSVP list) ----
+
+route('POST', '/api/predictions', async (req, res) => {
+  const body = await readBody(req);
+  const guestName = (body.guestName || '').trim();
+  const predictedPerson = (body.predictedPerson || '').trim();
+  const categoryId = parseInt(body.categoryId, 10);
+  if (!guestName) return sendJson(res, 400, { error: 'Your name is required' });
+  if (!predictedPerson) return sendJson(res, 400, { error: "Pick who you think it'll be" });
+
+  const data = await load();
+  const category = data.predictionCategories.find((c) => c.id === categoryId);
+  if (!category) return sendJson(res, 404, { error: 'Prediction category not found' });
+
+  const key = guestName.toLowerCase();
+  let prediction = data.predictions.find(
+    (p) => p.categoryId === categoryId && p.guestName.toLowerCase() === key
+  );
+  if (prediction) {
+    prediction.predictedPerson = predictedPerson;
+    prediction.updatedAt = new Date().toISOString();
+  } else {
+    prediction = {
+      id: nextId(data, 'predictions'),
+      categoryId,
+      guestName,
+      predictedPerson,
+      createdAt: new Date().toISOString(),
+    };
+    data.predictions.push(prediction);
+  }
+  await save(data);
+  sendJson(res, 200, { prediction });
+});
+
+route('DELETE', '/api/predictions/:id', async (req, res, params) => {
+  const data = await load();
+  data.predictions = data.predictions.filter((p) => p.id !== parseInt(params.id, 10));
   await save(data);
   sendJson(res, 200, { ok: true });
 });
