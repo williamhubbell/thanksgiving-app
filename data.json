@@ -53,10 +53,12 @@
       "familyName": "Mike",
       "attending": "yes",
       "members": [
+        "Mike",
         "Lindsey"
       ],
       "notes": "",
-      "createdAt": "2026-10-23T16:13:17.231Z"
+      "createdAt": "2026-10-23T16:13:17.231Z",
+      "updatedAt": "2026-11-03T03:13:00.276Z"
     },
     {
       "id": 5,
