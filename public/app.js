@@ -73,6 +73,7 @@
     renderRsvp();
     renderPotluck();
     renderGames();
+    renderPredictions();
     renderPhotos();
   }
 
@@ -439,6 +440,59 @@
               ? `<button class="btn small secondary" onclick="__leaveGame(${c.id})">Leave</button>`
               : `<button class="btn small" onclick="__joinGame(${c.id})">Join</button>`
           }
+        </div>`;
+      })
+      .join('');
+  }
+
+  // ---- Predictions ("friendly bets" — pick a name from the RSVP list) ----
+  async function submitPrediction(categoryId) {
+    const name = requireName();
+    if (!name) return;
+    const select = document.querySelector(`.prediction-select[data-cat="${categoryId}"]`);
+    const predictedPerson = select ? select.value : '';
+    if (!predictedPerson) return toast('Pick someone first');
+    try {
+      await api('POST', '/api/predictions', { guestName: name, categoryId, predictedPerson });
+      toast('Prediction saved!');
+      await refresh();
+    } catch (err) {
+      toast(err.message);
+    }
+  }
+  window.__submitPrediction = submitPrediction;
+
+  function renderPredictions() {
+    const container = document.getElementById('predictionList');
+    if (!container) return;
+    const options = state.predictionOptions || [];
+    const myName = currentName().toLowerCase();
+    container.innerHTML = (state.predictionCategories || [])
+      .map((cat) => {
+        const mine = cat.predictions.find((p) => p.guestName.toLowerCase() === myName);
+        const optionsHtml = options.length
+          ? options
+              .map(
+                (o) =>
+                  `<option value="${escapeHtml(o)}" ${mine && mine.predictedPerson === o ? 'selected' : ''}>${escapeHtml(o)}</option>`
+              )
+              .join('')
+          : '<option value="">No RSVPs yet</option>';
+        const entries = cat.predictions.length
+          ? cat.predictions
+              .map((p) => `<div class="item-sub">${escapeHtml(p.guestName)} picked <strong>${escapeHtml(p.predictedPerson)}</strong></div>`)
+              .join('')
+          : '<div class="item-sub">No predictions yet — be the first!</div>';
+        return `
+        <div class="list-item prediction-item">
+          <div class="item-main">
+            <div class="item-title">${escapeHtml(cat.name)}</div>
+            <div class="add-row">
+              <select class="prediction-select" data-cat="${cat.id}">${optionsHtml}</select>
+              <button class="btn small" onclick="__submitPrediction(${cat.id})">${mine ? 'Update' : 'Predict'}</button>
+            </div>
+            <div class="prediction-entries">${entries}</div>
+          </div>
         </div>`;
       })
       .join('');
