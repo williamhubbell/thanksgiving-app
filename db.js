@@ -61,11 +61,21 @@ function defaultData() {
       { name: 'Trivia', description: 'Thanksgiving & general trivia, teams of 2-4' },
       { name: 'Pictionary', description: 'Classic drawing & guessing game' },
       { name: 'Talent Show', description: "Show off a party trick, song, or skill" },
-      { name: 'Prediction Pool', description: 'Friendly bets on the game, the turkey, who falls asleep first, etc.' },
     ].map((g, i) => ({ id: i + 1, createdAt: new Date().toISOString(), ...g })),
     gameSignups: [],
+    // Fixed set of "friendly bets" categories guests predict by picking a
+    // name from the RSVP list (replaces the old simple-join "Prediction
+    // Pool" game category with an actual structured prediction).
+    predictionCategories: [
+      'First to Arrive',
+      'Last to Leave',
+      'Best Dish',
+      'First to Fall Asleep',
+      'Best Dressed',
+    ].map((name, i) => ({ id: i + 1, name, createdAt: new Date().toISOString() })),
+    predictions: [],
     photos: [],
-    nextIds: { families: 1, dishes: 16, gameCategories: 5, gameSignups: 1, photos: 1 },
+    nextIds: { families: 1, dishes: 16, gameCategories: 4, gameSignups: 1, predictions: 1, photos: 1 },
   };
 }
 
@@ -96,6 +106,18 @@ function migrate(data) {
   }
   if (!data.nextIds.photos) {
     data.nextIds.photos = 1;
+    dirty = true;
+  }
+  if (!data.predictionCategories) {
+    data.predictionCategories = defaultData().predictionCategories;
+    dirty = true;
+  }
+  if (!data.predictions) {
+    data.predictions = [];
+    dirty = true;
+  }
+  if (!data.nextIds.predictions) {
+    data.nextIds.predictions = 1;
     dirty = true;
   }
   return dirty;
