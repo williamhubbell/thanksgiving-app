@@ -658,7 +658,7 @@
     "gameCategories": 5,
     "gameSignups": 18,
     "photos": 11,
-    "predictions": 22
+    "predictions": 23
   },
   "predictionCategories": [
     {
@@ -844,6 +844,13 @@
       "guestName": "Cutter Buchea",
       "predictedPerson": "Cutter",
       "createdAt": "2026-11-07T20:52:59.349Z"
+    },
+    {
+      "id": 22,
+      "categoryId": 5,
+      "guestName": "Cutter Buchea",
+      "predictedPerson": "Kosta",
+      "createdAt": "2026-11-07T20:53:24.141Z"
     }
   ]
 }
