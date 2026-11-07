@@ -16,6 +16,7 @@
     <p class="site-address">
       <a id="eventAddressLink" href="#" target="_blank" rel="noopener">📍 <span id="eventAddress">108 North 200th Street, Shoreline, WA 98133</span></a>
     </p>
+    <p class="site-rsvp-due">📝 RSVPs due November 7</p>
   </header>
 
   <div class="countdown-banner" id="countdownBanner">
@@ -41,14 +42,37 @@
   </div>
 
   <nav class="tabs">
-    <button class="tab-btn active" data-tab="rsvp">RSVP</button>
-    <button class="tab-btn" data-tab="potluck">Potluck</button>
+    <button class="tab-btn active" data-tab="potluck">Potluck</button>
+    <button class="tab-btn" data-tab="rsvp">RSVP</button>
     <button class="tab-btn" data-tab="games">Games</button>
     <button class="tab-btn" data-tab="photos">Photos</button>
   </nav>
 
+  <!-- Potluck -->
+  <section class="panel active" id="panel-potluck">
+    <div class="card">
+      <h2>Potluck menu</h2>
+      <div class="phase-banner" id="phaseBanner"></div>
+      <div id="dishLists"></div>
+
+      <h3>Suggest a dish</h3>
+      <div class="add-row">
+        <select id="newDishCategory">
+          <option>Appetizer</option>
+          <option>Side</option>
+          <option>Main</option>
+          <option>Dessert</option>
+          <option>Drinks</option>
+          <option>Other</option>
+        </select>
+        <input type="text" id="newDishName" placeholder="e.g. Pecan pie" />
+      </div>
+      <button class="btn secondary" id="addDishBtn" type="button">Add dish</button>
+    </div>
+  </section>
+
   <!-- RSVP -->
-  <section class="panel active" id="panel-rsvp">
+  <section class="panel" id="panel-rsvp">
     <div class="card">
       <h2>RSVP your family</h2>
       <form id="rsvpForm">
@@ -79,29 +103,6 @@
     <div class="card">
       <h2>Who's coming</h2>
       <div id="familyList"></div>
-    </div>
-  </section>
-
-  <!-- Potluck -->
-  <section class="panel" id="panel-potluck">
-    <div class="card">
-      <h2>Potluck menu</h2>
-      <div class="phase-banner" id="phaseBanner"></div>
-      <div id="dishLists"></div>
-
-      <h3>Suggest a dish</h3>
-      <div class="add-row">
-        <select id="newDishCategory">
-          <option>Appetizer</option>
-          <option>Side</option>
-          <option>Main</option>
-          <option>Dessert</option>
-          <option>Drinks</option>
-          <option>Other</option>
-        </select>
-        <input type="text" id="newDishName" placeholder="e.g. Pecan pie" />
-      </div>
-      <button class="btn secondary" id="addDishBtn" type="button">Add dish</button>
     </div>
   </section>
 
