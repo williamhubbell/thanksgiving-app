@@ -323,6 +323,22 @@ route('POST', '/api/dishes/:id/unclaim', async (req, res, params) => {
   sendJson(res, 200, { dish });
 });
 
+// Dashboard-only: move a dish to a different category (or rename it)
+// without disturbing its votes/claim — used e.g. to re-file a suggested
+// dish under the right course.
+route('PATCH', '/api/dishes/:id', async (req, res, params) => {
+  const body = await readBody(req);
+  const data = await load();
+  const dish = data.dishes.find((d) => d.id === parseInt(params.id, 10));
+  if (!dish) return notFound(res);
+  const category = (body.category || '').trim();
+  const itemName = (body.itemName || '').trim();
+  if (category) dish.category = category;
+  if (itemName) dish.itemName = itemName;
+  await save(data);
+  sendJson(res, 200, { dish });
+});
+
 route('DELETE', '/api/dishes/:id', async (req, res, params) => {
   const data = await load();
   data.dishes = data.dishes.filter((d) => d.id !== parseInt(params.id, 10));
