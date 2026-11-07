@@ -658,7 +658,7 @@
     "gameCategories": 5,
     "gameSignups": 18,
     "photos": 11,
-    "predictions": 19
+    "predictions": 20
   },
   "predictionCategories": [
     {
@@ -822,6 +822,13 @@
       "guestName": "Milena Orlovic",
       "predictedPerson": "Lauren",
       "createdAt": "2026-11-07T20:19:06.769Z"
+    },
+    {
+      "id": 19,
+      "categoryId": 1,
+      "guestName": "Cutter Buchea",
+      "predictedPerson": "Mitchell",
+      "createdAt": "2026-11-07T20:52:07.869Z"
     }
   ]
 }
