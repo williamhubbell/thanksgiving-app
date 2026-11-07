@@ -418,20 +418,6 @@
       "itemName": "Wine"
     },
     {
-      "id": 16,
-      "category": "Appetizer",
-      "itemName": "BBQ pork",
-      "suggested": false,
-      "upvotes": [
-        "Dominic keich"
-      ],
-      "downvotes": [
-        "Pierce Keich"
-      ],
-      "claimedBy": null,
-      "createdAt": "2026-10-23T15:54:04.061Z"
-    },
-    {
       "id": 17,
       "category": "Main",
       "itemName": "Prime Rib",
