@@ -571,16 +571,6 @@
       "createdAt": "2026-10-29T01:27:19.129Z"
     },
     {
-      "id": 27,
-      "category": "Side",
-      "itemName": "Green Beans",
-      "suggested": false,
-      "upvotes": [],
-      "downvotes": [],
-      "claimedBy": null,
-      "createdAt": "2026-11-02T16:31:03.142Z"
-    },
-    {
       "id": 28,
       "category": "Drinks",
       "itemName": "Batch Cocktail",
