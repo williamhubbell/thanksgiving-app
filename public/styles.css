@@ -82,6 +82,17 @@ header.top .site-address a {
 }
 header.top .site-address a:hover { text-decoration: underline; }
 
+header.top .site-rsvp-due {
+  margin-top: 8px;
+  display: inline-block;
+  background: var(--red);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
 .countdown-banner {
   background: var(--brown);
   color: #fff;
