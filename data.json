@@ -827,8 +827,9 @@
       "id": 19,
       "categoryId": 1,
       "guestName": "Cutter Buchea",
-      "predictedPerson": "Mitchell",
-      "createdAt": "2026-11-07T20:52:07.869Z"
+      "predictedPerson": "William Sr.",
+      "createdAt": "2026-11-07T20:52:07.869Z",
+      "updatedAt": "2026-11-07T20:52:22.558Z"
     }
   ]
 }
