@@ -664,7 +664,7 @@
     "gameCategories": 5,
     "gameSignups": 18,
     "photos": 11,
-    "predictions": 16
+    "predictions": 17
   },
   "predictionCategories": [
     {
@@ -806,6 +806,13 @@
       "predictedPerson": "Milena",
       "createdAt": "2026-11-03T05:35:35.884Z",
       "updatedAt": "2026-11-03T05:35:36.592Z"
+    },
+    {
+      "id": 16,
+      "categoryId": 3,
+      "guestName": "Milena Orlovic",
+      "predictedPerson": "Ivana",
+      "createdAt": "2026-11-07T20:15:44.074Z"
     }
   ]
 }
