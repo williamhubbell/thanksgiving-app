@@ -355,19 +355,6 @@
       "itemName": "Pumpkin pie"
     },
     {
-      "id": 12,
-      "claimedBy": null,
-      "upvotes": [
-        "Pierce Keich",
-        "Dominic keich"
-      ],
-      "downvotes": [],
-      "suggested": true,
-      "createdAt": "2026-10-23T05:45:49.739Z",
-      "category": "Dessert",
-      "itemName": "Apple pie"
-    },
-    {
       "id": 13,
       "claimedBy": null,
       "upvotes": [
