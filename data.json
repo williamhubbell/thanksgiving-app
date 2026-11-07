@@ -516,18 +516,6 @@
       "createdAt": "2026-10-23T17:56:40.204Z"
     },
     {
-      "id": 25,
-      "category": "Main",
-      "itemName": "Ham",
-      "suggested": false,
-      "upvotes": [
-        "Dominic keich"
-      ],
-      "downvotes": [],
-      "claimedBy": null,
-      "createdAt": "2026-10-29T01:26:31.985Z"
-    },
-    {
       "id": 26,
       "category": "Side",
       "itemName": "Ceasar salad",
