@@ -418,25 +418,6 @@
       "itemName": "Wine"
     },
     {
-      "id": 17,
-      "category": "Main",
-      "itemName": "Prime Rib",
-      "suggested": false,
-      "upvotes": [
-        "Ivana",
-        "Ani Shauck",
-        "Lauren Billing",
-        "Ken"
-      ],
-      "downvotes": [
-        "Pierce Keich",
-        "Dominic keich",
-        "Debbie"
-      ],
-      "claimedBy": null,
-      "createdAt": "2026-10-23T15:54:39.432Z"
-    },
-    {
       "id": 19,
       "category": "Dessert",
       "itemName": "Bugatsa",
