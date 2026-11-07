@@ -468,22 +468,6 @@
       "createdAt": "2026-10-23T16:56:28.101Z"
     },
     {
-      "id": 24,
-      "category": "Side",
-      "itemName": "Cottage Bakery Bread",
-      "suggested": false,
-      "upvotes": [
-        "William",
-        "Debbie",
-        "Pierce Keich"
-      ],
-      "downvotes": [
-        "Dominic keich"
-      ],
-      "claimedBy": null,
-      "createdAt": "2026-10-23T17:56:40.204Z"
-    },
-    {
       "id": 26,
       "category": "Side",
       "itemName": "Ceasar salad",
