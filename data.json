@@ -711,7 +711,7 @@
     "gameCategories": 5,
     "gameSignups": 18,
     "photos": 11,
-    "predictions": 29
+    "predictions": 30
   },
   "predictionCategories": [
     {
@@ -946,6 +946,13 @@
       "guestName": "Dominic Keich",
       "predictedPerson": "Kosta",
       "createdAt": "2026-11-08T18:32:33.842Z"
+    },
+    {
+      "id": 29,
+      "categoryId": 3,
+      "guestName": "Dominic Keich",
+      "predictedPerson": "Ivana",
+      "createdAt": "2026-11-08T18:33:12.148Z"
     }
   ]
 }
