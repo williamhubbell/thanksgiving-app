@@ -29,10 +29,11 @@
       "familyName": "Theodora Hubbell",
       "attending": "yes",
       "members": [
-        "Me"
+        "Lola"
       ],
       "notes": "",
-      "createdAt": "2026-10-23T16:11:17.501Z"
+      "createdAt": "2026-10-23T16:11:17.501Z",
+      "updatedAt": "2026-11-08T18:21:45.111Z"
     },
     {
       "id": 4,
