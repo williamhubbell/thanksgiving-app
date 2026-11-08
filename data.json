@@ -196,7 +196,9 @@
     },
     {
       "id": 2,
-      "claimedBy": null,
+      "claimedBy": [
+        "Lindsey"
+      ],
       "upvotes": [
         "Debbie",
         "Ani Shauck",
