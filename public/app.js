@@ -323,8 +323,10 @@
     }
   }
   async function unclaimDish(id) {
+    const name = requireName();
+    if (!name) return;
     try {
-      await api('POST', `/api/dishes/${id}/unclaim`, {});
+      await api('POST', `/api/dishes/${id}/unclaim`, { guestName: name });
       toast('Removed your claim');
       await refresh();
     } catch (err) {
@@ -354,11 +356,13 @@
     document.getElementById('dishLists').innerHTML = categories
       .filter((c) => byCategory[c].length)
       .map((cat) => {
+        const isDrinks = cat === 'Drinks';
         const items = byCategory[cat]
           .map((d) => {
+            const claimedList = d.claimedBy || [];
             const iUpvoted = d.upvotes.some((n) => n.toLowerCase() === myName);
             const iDownvoted = d.downvotes.some((n) => n.toLowerCase() === myName);
-            const isMine = d.claimedBy && d.claimedBy.toLowerCase() === myName;
+            const isMine = claimedList.some((n) => n.toLowerCase() === myName);
 
             let rightControls;
             if (voting) {
@@ -368,13 +372,21 @@
                   <span class="score-num">${d.score > 0 ? '+' : ''}${d.score}</span>
                   <button class="vote-btn down ${iDownvoted ? 'active' : ''}" onclick="__voteDish(${d.id},'down')">▼</button>
                 </div>`;
+            } else if (isDrinks) {
+              // Drinks allow several people to sign up for the same item.
+              const action = isMine
+                ? `<button class="btn small secondary" onclick="__unclaimDish(${d.id})">Unclaim</button>`
+                : `<button class="btn small" onclick="__claimDish(${d.id})">${claimedList.length ? "I'll bring this too" : 'Claim'}</button>`;
+              rightControls = `<span class="badge ${claimedList.length ? 'claimed' : 'open'}">${
+                claimedList.length ? claimedList.length + ' bringing' : 'Open'
+              }</span>${action}`;
             } else {
-              const action = d.claimedBy
+              const action = claimedList.length
                 ? isMine
                   ? `<button class="btn small secondary" onclick="__unclaimDish(${d.id})">Unclaim</button>`
                   : ''
                 : `<button class="btn small" onclick="__claimDish(${d.id})">Claim</button>`;
-              rightControls = `<span class="badge ${d.claimedBy ? 'claimed' : 'open'}">${d.claimedBy ? 'Claimed' : 'Open'}</span>${action}`;
+              rightControls = `<span class="badge ${claimedList.length ? 'claimed' : 'open'}">${claimedList.length ? 'Claimed' : 'Open'}</span>${action}`;
             }
 
             return `
@@ -384,8 +396,8 @@
               <div class="item-sub">${
                 voting
                   ? `${d.upvotes.length} up · ${d.downvotes.length} down`
-                  : d.claimedBy
-                  ? 'Bringing: ' + escapeHtml(d.claimedBy)
+                  : claimedList.length
+                  ? 'Bringing: ' + claimedList.map(escapeHtml).join(', ')
                   : 'Nobody has claimed this yet'
               }</div>
             </div>
