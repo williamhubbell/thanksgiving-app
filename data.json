@@ -711,7 +711,7 @@
     "gameCategories": 5,
     "gameSignups": 18,
     "photos": 11,
-    "predictions": 28
+    "predictions": 29
   },
   "predictionCategories": [
     {
@@ -939,6 +939,13 @@
       "guestName": "William Jr.",
       "predictedPerson": "Amanda Shauck",
       "createdAt": "2026-11-08T18:27:33.248Z"
+    },
+    {
+      "id": 28,
+      "categoryId": 2,
+      "guestName": "Dominic Keich",
+      "predictedPerson": "Kosta",
+      "createdAt": "2026-11-08T18:32:33.842Z"
     }
   ]
 }
