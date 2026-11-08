@@ -510,16 +510,6 @@
       "createdAt": "2026-11-08T04:52:28.240Z"
     },
     {
-      "id": 32,
-      "category": "Dessert",
-      "itemName": "Maple Pumpkin Blondies",
-      "suggested": false,
-      "upvotes": [],
-      "downvotes": [],
-      "claimedBy": null,
-      "createdAt": "2026-11-08T04:52:29.503Z"
-    },
-    {
       "id": 33,
       "category": "Side",
       "itemName": "Slava Bread",
