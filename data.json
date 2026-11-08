@@ -399,7 +399,9 @@
     },
     {
       "id": 15,
-      "claimedBy": [],
+      "claimedBy": [
+        "Demos Gennaios"
+      ],
       "upvotes": [
         "Ivana",
         "Ani Shauck",
