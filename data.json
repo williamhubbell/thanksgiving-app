@@ -174,7 +174,9 @@
   "dishes": [
     {
       "id": 1,
-      "claimedBy": [],
+      "claimedBy": [
+        "Cutter"
+      ],
       "upvotes": [
         "William",
         "Ani Shauck",
