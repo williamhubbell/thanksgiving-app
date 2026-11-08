@@ -59,7 +59,7 @@
       <div class="summary-pill"><div class="num">${s.familiesCount || 0}</div><div class="lbl">Families</div></div>
       <div class="summary-pill"><div class="num">${s.totalHeadcountYes || 0}</div><div class="lbl">Confirmed</div></div>
       <div class="summary-pill"><div class="num">${s.totalHeadcountMaybe || 0}</div><div class="lbl">Maybe</div></div>
-      <div class="summary-pill"><div class="num">${state.dishes.filter((d) => !d.claimedBy).length}</div><div class="lbl">Open dishes</div></div>
+      <div class="summary-pill"><div class="num">${state.dishes.filter((d) => !(d.claimedBy && d.claimedBy.length)).length}</div><div class="lbl">Open dishes</div></div>
       <div class="summary-pill"><div class="num">${s.photosCount || 0}</div><div class="lbl">Photos</div></div>
     `;
   }
@@ -162,22 +162,23 @@
       .filter((c) => byCategory[c].length)
       .map((cat) => {
         const items = byCategory[cat]
-          .map(
-            (d) => `
+          .map((d) => {
+            const claimedList = d.claimedBy || [];
+            return `
         <div class="list-item">
           <div class="item-main">
             <div class="item-title">${escapeHtml(d.itemName)}</div>
             <div class="item-sub">${
               voting
                 ? `Score: ${d.score > 0 ? '+' : ''}${d.score} (${d.upvotes.length} up · ${d.downvotes.length} down)`
-                : d.claimedBy
-                ? 'Bringing: ' + escapeHtml(d.claimedBy)
+                : claimedList.length
+                ? 'Bringing: ' + claimedList.map(escapeHtml).join(', ')
                 : 'Not claimed yet'
             }</div>
           </div>
           <button class="btn small danger" onclick="__deleteDish(${d.id})">✕</button>
-        </div>`
-          )
+        </div>`;
+          })
           .join('');
         return `<h3>${cat}</h3>${items}`;
       })
