@@ -508,6 +508,16 @@
       "downvotes": [],
       "claimedBy": null,
       "createdAt": "2026-11-08T04:51:45.763Z"
+    },
+    {
+      "id": 31,
+      "category": "Dessert",
+      "itemName": "Maple Pumpkin Blondies",
+      "suggested": false,
+      "upvotes": [],
+      "downvotes": [],
+      "claimedBy": "Amanda Shauck",
+      "createdAt": "2026-11-08T04:52:28.240Z"
     }
   ],
   "gameCategories": [
@@ -674,7 +684,7 @@
   ],
   "nextIds": {
     "families": 17,
-    "dishes": 31,
+    "dishes": 32,
     "gameCategories": 5,
     "gameSignups": 18,
     "photos": 11,
