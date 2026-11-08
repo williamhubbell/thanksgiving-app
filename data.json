@@ -709,7 +709,7 @@
     "gameCategories": 5,
     "gameSignups": 18,
     "photos": 11,
-    "predictions": 27
+    "predictions": 28
   },
   "predictionCategories": [
     {
@@ -930,6 +930,13 @@
       "guestName": "William Jr.",
       "predictedPerson": "Debbie",
       "createdAt": "2026-11-08T18:27:24.579Z"
+    },
+    {
+      "id": 27,
+      "categoryId": 4,
+      "guestName": "William Jr.",
+      "predictedPerson": "Amanda Shauck",
+      "createdAt": "2026-11-08T18:27:33.248Z"
     }
   ]
 }
