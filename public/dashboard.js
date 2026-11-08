@@ -105,20 +105,43 @@
   }
   window.__deleteFamily = deleteFamily;
 
+  // What a family is bringing, matched by comparing each dish's claimedBy
+  // names against that family's member list (case-insensitive).
+  function familyPotluckItems(family) {
+    const memberKeys = family.members.map((m) => m.toLowerCase());
+    const items = [];
+    (state.dishes || []).forEach((d) => {
+      (d.claimedBy || []).forEach((name) => {
+        if (memberKeys.includes(name.toLowerCase())) {
+          items.push({ itemName: d.itemName, who: name });
+        }
+      });
+    });
+    return items;
+  }
+
   function renderFamilies() {
     const sorted = [...state.families].sort((a, b) => a.familyName.localeCompare(b.familyName));
     document.getElementById('familyTable').innerHTML = sorted.length
       ? sorted
-          .map(
-            (f) => `
+          .map((f) => {
+            const potluck = familyPotluckItems(f);
+            const multiMember = f.members.length > 1;
+            const potluckLine = potluck.length
+              ? ' · 🍽️ ' +
+                potluck
+                  .map((p) => (multiMember ? `${escapeHtml(p.itemName)} (${escapeHtml(p.who)})` : escapeHtml(p.itemName)))
+                  .join(', ')
+              : '';
+            return `
       <div class="list-item">
         <div class="item-main">
           <div class="item-title">${escapeHtml(f.familyName)} family <span class="badge ${f.attending}">${f.attending}</span></div>
-          <div class="item-sub">${f.members.map(escapeHtml).join(', ') || 'No members listed'}${f.notes ? ' · ' + escapeHtml(f.notes) : ''}</div>
+          <div class="item-sub">${f.members.map(escapeHtml).join(', ') || 'No members listed'}${f.notes ? ' · ' + escapeHtml(f.notes) : ''}${potluckLine}</div>
         </div>
         <button class="btn small danger" onclick="__deleteFamily(${f.id})">Remove</button>
-      </div>`
-          )
+      </div>`;
+          })
           .join('')
       : '<p class="hint">No RSVPs yet.</p>';
   }
