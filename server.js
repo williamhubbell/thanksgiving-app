@@ -71,6 +71,15 @@ function dishScore(d) {
   return d.upvotes.length - d.downvotes.length;
 }
 
+// Dishes historically stored claimedBy as a single string (or null). Drinks
+// now allow multiple people to sign up for the same item, so claimedBy is
+// an array of names going forward — this normalizes either shape to an
+// array so every read/write path can treat it uniformly.
+function claimedByArray(d) {
+  if (Array.isArray(d.claimedBy)) return d.claimedBy;
+  return d.claimedBy ? [d.claimedBy] : [];
+}
+
 // Event date/time, with a fixed Pacific-time offset appended so every
 // guest's browser (whatever timezone they're in) computes the same
 // countdown. Nov 26, 2026 is during Pacific Standard Time (UTC-8).
@@ -121,7 +130,7 @@ function publicState(data) {
       id: d.id,
       category: d.category,
       itemName: d.itemName,
-      claimedBy: d.claimedBy,
+      claimedBy: claimedByArray(d),
       suggested: d.suggested,
       upvotes: d.upvotes,
       downvotes: d.downvotes,
@@ -252,7 +261,7 @@ route('POST', '/api/dishes', async (req, res) => {
     upvotes: [],
     downvotes: [],
     // Only let an immediate claim happen once sign-ups are open.
-    claimedBy: computePotluckPhase(data) === 'signup' && guestName ? guestName : null,
+    claimedBy: computePotluckPhase(data) === 'signup' && guestName ? [guestName] : [],
     createdAt: new Date().toISOString(),
   };
   data.dishes.push(dish);
@@ -297,6 +306,9 @@ route('POST', '/api/dishes/:id/vote', async (req, res, params) => {
   sendJson(res, 200, { dish });
 });
 
+// Most dishes still allow only one claimer. Drinks is the exception —
+// several people can sign up to bring a drink item (e.g. everyone
+// pitching in on "Wine").
 route('POST', '/api/dishes/:id/claim', async (req, res, params) => {
   const body = await readBody(req);
   const guestName = (body.guestName || '').trim();
@@ -308,17 +320,31 @@ route('POST', '/api/dishes/:id/claim', async (req, res, params) => {
   }
   const dish = data.dishes.find((d) => d.id === parseInt(params.id, 10));
   if (!dish) return notFound(res);
-  if (dish.claimedBy) return sendJson(res, 409, { error: 'That item is already claimed' });
-  dish.claimedBy = guestName;
+
+  const claimed = claimedByArray(dish);
+  const key = guestName.toLowerCase();
+  if (claimed.some((n) => n.toLowerCase() === key)) {
+    return sendJson(res, 409, { error: "You're already signed up for this" });
+  }
+  const allowMultiple = dish.category === 'Drinks';
+  if (!allowMultiple && claimed.length > 0) {
+    return sendJson(res, 409, { error: 'That item is already claimed' });
+  }
+  dish.claimedBy = [...claimed, guestName];
   await save(data);
   sendJson(res, 200, { dish });
 });
 
 route('POST', '/api/dishes/:id/unclaim', async (req, res, params) => {
+  const body = await readBody(req);
+  const guestName = (body.guestName || '').trim();
   const data = await load();
   const dish = data.dishes.find((d) => d.id === parseInt(params.id, 10));
   if (!dish) return notFound(res);
-  dish.claimedBy = null;
+  const claimed = claimedByArray(dish);
+  dish.claimedBy = guestName
+    ? claimed.filter((n) => n.toLowerCase() !== guestName.toLowerCase())
+    : [];
   await save(data);
   sendJson(res, 200, { dish });
 });
