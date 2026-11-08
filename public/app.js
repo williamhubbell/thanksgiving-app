@@ -252,6 +252,22 @@
     }
   });
 
+  // What a family is bringing, matched by comparing each dish's claimedBy
+  // names against that family's member list (case-insensitive). Used on
+  // the RSVP "Who's coming" list so potluck sign-ups show up there too.
+  function familyPotluckItems(family) {
+    const memberKeys = family.members.map((m) => m.toLowerCase());
+    const items = [];
+    (state.dishes || []).forEach((d) => {
+      (d.claimedBy || []).forEach((name) => {
+        if (memberKeys.includes(name.toLowerCase())) {
+          items.push({ itemName: d.itemName, who: name });
+        }
+      });
+    });
+    return items;
+  }
+
   function renderRsvp() {
     const familyName = familyNameInput.value.trim().toLowerCase();
     const mine = state.families.find((f) => f.familyName.toLowerCase() === familyName);
@@ -271,15 +287,24 @@
     const sorted = [...state.families].sort((a, b) => a.familyName.localeCompare(b.familyName));
     document.getElementById('familyList').innerHTML = sorted.length
       ? sorted
-          .map(
-            (f) => `
+          .map((f) => {
+            const potluck = familyPotluckItems(f);
+            const multiMember = f.members.length > 1;
+            return `
         <div class="family-block">
           <span class="family-name">${escapeHtml(f.familyName)} family</span>
           <span class="badge ${f.attending}">${f.attending}</span>
           <ul>${f.members.map((m) => `<li>${escapeHtml(m)}</li>`).join('') || '<li class="hint">No members listed</li>'}</ul>
           ${f.notes ? `<div class="item-sub">${escapeHtml(f.notes)}</div>` : ''}
-        </div>`
-          )
+          ${
+            potluck.length
+              ? `<div class="item-sub">🍽️ Bringing: ${potluck
+                  .map((p) => (multiMember ? `${escapeHtml(p.itemName)} (${escapeHtml(p.who)})` : escapeHtml(p.itemName)))
+                  .join(', ')}</div>`
+              : ''
+          }
+        </div>`;
+          })
           .join('')
       : '<p class="hint">No RSVPs yet — be the first!</p>';
   }
