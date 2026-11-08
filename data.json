@@ -709,7 +709,7 @@
     "gameCategories": 5,
     "gameSignups": 18,
     "photos": 11,
-    "predictions": 24
+    "predictions": 25
   },
   "predictionCategories": [
     {
@@ -909,6 +909,13 @@
       "guestName": "William Jr.",
       "predictedPerson": "Lola",
       "createdAt": "2026-11-08T18:26:12.656Z"
+    },
+    {
+      "id": 24,
+      "categoryId": 3,
+      "guestName": "William Jr.",
+      "predictedPerson": "Kayla",
+      "createdAt": "2026-11-08T18:26:49.515Z"
     }
   ]
 }
