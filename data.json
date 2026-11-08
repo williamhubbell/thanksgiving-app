@@ -528,6 +528,16 @@
       "downvotes": [],
       "claimedBy": null,
       "createdAt": "2026-11-08T04:52:29.503Z"
+    },
+    {
+      "id": 33,
+      "category": "Side",
+      "itemName": "Slava Bread",
+      "suggested": false,
+      "upvotes": [],
+      "downvotes": [],
+      "claimedBy": "Ivana",
+      "createdAt": "2026-11-08T06:36:43.186Z"
     }
   ],
   "gameCategories": [
@@ -694,7 +704,7 @@
   ],
   "nextIds": {
     "families": 17,
-    "dishes": 33,
+    "dishes": 34,
     "gameCategories": 5,
     "gameSignups": 18,
     "photos": 11,
