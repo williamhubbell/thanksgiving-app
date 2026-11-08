@@ -259,7 +259,9 @@
     },
     {
       "id": 6,
-      "claimedBy": [],
+      "claimedBy": [
+        "Milena"
+      ],
       "upvotes": [
         "Ivana",
         "Ani Shauck",
