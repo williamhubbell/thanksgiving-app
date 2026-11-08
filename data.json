@@ -527,6 +527,18 @@
       "downvotes": [],
       "claimedBy": "Ivana",
       "createdAt": "2026-11-08T06:36:43.186Z"
+    },
+    {
+      "id": 34,
+      "category": "Main",
+      "itemName": "Deep Fried Turkey",
+      "suggested": false,
+      "upvotes": [],
+      "downvotes": [],
+      "claimedBy": [
+        "Kosta"
+      ],
+      "createdAt": "2026-11-08T18:21:46.459Z"
     }
   ],
   "gameCategories": [
@@ -693,7 +705,7 @@
   ],
   "nextIds": {
     "families": 17,
-    "dishes": 34,
+    "dishes": 35,
     "gameCategories": 5,
     "gameSignups": 18,
     "photos": 11,
