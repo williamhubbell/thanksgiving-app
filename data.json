@@ -391,7 +391,8 @@
     {
       "id": 15,
       "claimedBy": [
-        "Test Person A"
+        "Test Person A",
+        "Test Person B"
       ],
       "upvotes": [
         "Ivana",
