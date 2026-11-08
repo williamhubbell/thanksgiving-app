@@ -390,7 +390,9 @@
     },
     {
       "id": 15,
-      "claimedBy": null,
+      "claimedBy": [
+        "Test Person A"
+      ],
       "upvotes": [
         "Ivana",
         "Ani Shauck",
