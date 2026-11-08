@@ -498,6 +498,16 @@
       "downvotes": [],
       "claimedBy": "Ani Shauck",
       "createdAt": "2026-11-08T04:51:09.242Z"
+    },
+    {
+      "id": 30,
+      "category": "Dessert",
+      "itemName": "Maple Pecan Pumpkin Blondies",
+      "suggested": false,
+      "upvotes": [],
+      "downvotes": [],
+      "claimedBy": "Ani Shauck",
+      "createdAt": "2026-11-08T04:51:45.763Z"
     }
   ],
   "gameCategories": [
@@ -664,7 +674,7 @@
   ],
   "nextIds": {
     "families": 17,
-    "dishes": 30,
+    "dishes": 31,
     "gameCategories": 5,
     "gameSignups": 18,
     "photos": 11,
