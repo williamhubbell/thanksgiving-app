@@ -230,7 +230,9 @@
     },
     {
       "id": 4,
-      "claimedBy": null,
+      "claimedBy": [
+        "Jennifer Mcgreevy"
+      ],
       "upvotes": [
         "Niko",
         "Demetra",
