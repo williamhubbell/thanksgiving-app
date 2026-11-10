@@ -408,7 +408,9 @@
     },
     {
       "id": 14,
-      "claimedBy": null,
+      "claimedBy": [
+        "Brooke Billing"
+      ],
       "upvotes": [
         "Ivana",
         "Ani Shauck",
