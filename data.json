@@ -530,7 +530,9 @@
       "suggested": false,
       "upvotes": [],
       "downvotes": [],
-      "claimedBy": null,
+      "claimedBy": [
+        "Brooke Billing"
+      ],
       "createdAt": "2026-11-02T16:31:17.492Z"
     },
     {
