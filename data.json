@@ -617,7 +617,9 @@
       "suggested": false,
       "upvotes": [],
       "downvotes": [],
-      "claimedBy": [],
+      "claimedBy": [
+        "Test Guest A"
+      ],
       "createdAt": "2026-11-10T04:03:52.086Z"
     },
     {
