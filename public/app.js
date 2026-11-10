@@ -537,6 +537,41 @@
       .join('');
   }
 
+  // ---- Cook the Turkeys (just for fun — purely client-side, no persistence) ----
+  const TURKEY_STAGES = [
+    { label: 'Raw', emoji: '🦃', bg: '#f3cba3' },
+    { label: 'Rare', emoji: '🍗', bg: '#e7a978' },
+    { label: 'Medium', emoji: '🍗', bg: '#d98e55' },
+    { label: 'Well done', emoji: '🍗', bg: '#bd7539' },
+    { label: 'Crispy', emoji: '🍗✨', bg: '#8f5526' },
+    { label: 'Deep fried!', emoji: '🔥🦃🔥', bg: '#5a3418' },
+    { label: 'Burnt! 😅', emoji: '💀🦃', bg: '#211007' },
+  ];
+  const turkeyStages = [0, 0, 0];
+
+  function renderTurkeys() {
+    const grid = document.getElementById('turkeyGrid');
+    if (!grid) return;
+    grid.innerHTML = turkeyStages
+      .map((stageIdx, i) => {
+        const stage = TURKEY_STAGES[stageIdx];
+        return `
+        <button type="button" class="turkey-btn" style="background:${stage.bg}" onclick="__cookTurkey(${i})">
+          <span class="turkey-emoji">${stage.emoji}</span>
+          <span class="turkey-label">${escapeHtml(stage.label)}</span>
+        </button>`;
+      })
+      .join('');
+  }
+  function cookTurkey(i) {
+    turkeyStages[i] = (turkeyStages[i] + 1) % TURKEY_STAGES.length;
+    renderTurkeys();
+    if (turkeyStages[i] === TURKEY_STAGES.length - 2) toast('🔥 Deep fried to perfection!');
+    if (turkeyStages[i] === TURKEY_STAGES.length - 1) toast("💀 That's one burnt bird — tap to start a new one!");
+  }
+  window.__cookTurkey = cookTurkey;
+  renderTurkeys();
+
   // ---- Photos ----
 
   // Resizes/compresses an image in the browser before upload, so phone
