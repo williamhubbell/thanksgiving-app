@@ -182,6 +182,17 @@
       "notes": "",
       "createdAt": "2026-11-10T01:04:37.661Z",
       "updatedAt": "2026-11-10T01:08:47.615Z"
+    },
+    {
+      "id": 18,
+      "familyName": "Mitchell",
+      "attending": "maybe",
+      "members": [
+        "Bobby",
+        "Karen"
+      ],
+      "notes": "Will come for desert",
+      "createdAt": "2026-11-10T02:02:50.094Z"
     }
   ],
   "dishes": [
@@ -738,7 +749,7 @@
     }
   ],
   "nextIds": {
-    "families": 18,
+    "families": 19,
     "dishes": 36,
     "gameCategories": 5,
     "gameSignups": 18,
