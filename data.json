@@ -170,6 +170,16 @@
       ],
       "notes": "",
       "createdAt": "2026-11-03T03:13:05.161Z"
+    },
+    {
+      "id": 17,
+      "familyName": "Freitag",
+      "attending": "yes",
+      "members": [
+        "Linda"
+      ],
+      "notes": "",
+      "createdAt": "2026-11-10T01:04:37.661Z"
     }
   ],
   "dishes": [
@@ -714,7 +724,7 @@
     }
   ],
   "nextIds": {
-    "families": 17,
+    "families": 18,
     "dishes": 35,
     "gameCategories": 5,
     "gameSignups": 18,
