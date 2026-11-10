@@ -621,6 +621,18 @@
         "William Hubbell"
       ],
       "createdAt": "2026-11-10T04:03:52.086Z"
+    },
+    {
+      "id": 38,
+      "category": "Drinks",
+      "itemName": "Soda",
+      "suggested": false,
+      "upvotes": [],
+      "downvotes": [],
+      "claimedBy": [
+        "William Hubbell"
+      ],
+      "createdAt": "2026-11-10T04:04:00.523Z"
     }
   ],
   "gameCategories": [
@@ -787,7 +799,7 @@
   ],
   "nextIds": {
     "families": 20,
-    "dishes": 38,
+    "dishes": 39,
     "gameCategories": 5,
     "gameSignups": 18,
     "photos": 11,
