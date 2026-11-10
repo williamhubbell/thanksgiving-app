@@ -609,6 +609,18 @@
       "downvotes": [],
       "claimedBy": [],
       "createdAt": "2026-11-10T03:40:23.076Z"
+    },
+    {
+      "id": 37,
+      "category": "Drinks",
+      "itemName": "Beer",
+      "suggested": false,
+      "upvotes": [],
+      "downvotes": [],
+      "claimedBy": [
+        "William Hubbell"
+      ],
+      "createdAt": "2026-11-10T04:03:52.086Z"
     }
   ],
   "gameCategories": [
@@ -775,7 +787,7 @@
   ],
   "nextIds": {
     "families": 20,
-    "dishes": 37,
+    "dishes": 38,
     "gameCategories": 5,
     "gameSignups": 18,
     "photos": 11,
