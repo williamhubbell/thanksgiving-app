@@ -493,7 +493,9 @@
         "Dominic keich"
       ],
       "downvotes": [],
-      "claimedBy": null,
+      "claimedBy": [
+        "Linda"
+      ],
       "createdAt": "2026-10-29T01:27:19.129Z"
     },
     {
