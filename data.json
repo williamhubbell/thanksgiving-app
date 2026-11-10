@@ -176,11 +176,12 @@
       "familyName": "Freitag",
       "attending": "yes",
       "members": [
-        "Linda"
+        "Linda",
+        "Jim"
       ],
       "notes": "",
       "createdAt": "2026-11-10T01:04:37.661Z",
-      "updatedAt": "2026-11-10T01:08:43.814Z"
+      "updatedAt": "2026-11-10T01:08:47.615Z"
     }
   ],
   "dishes": [
