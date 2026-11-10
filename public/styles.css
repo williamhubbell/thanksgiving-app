@@ -600,3 +600,36 @@ a { color: var(--orange-dark); }
   border-radius: 10px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
 }
+
+
+/* Cook the Turkeys — just-for-fun tappable widget, purely client-side */
+.turkey-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+.turkey-btn {
+  border: none;
+  border-radius: 12px;
+  padding: 14px 6px 12px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: background 0.3s ease, transform 0.12s ease;
+  min-height: 90px;
+  justify-content: center;
+}
+.turkey-btn:active { transform: scale(0.93); }
+.turkey-emoji { font-size: 2rem; line-height: 1; }
+.turkey-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
