@@ -215,6 +215,20 @@
       ],
       "notes": "",
       "createdAt": "2026-11-10T22:11:17.995Z"
+    },
+    {
+      "id": 21,
+      "familyName": "Linnabary",
+      "attending": "yes",
+      "members": [
+        "Mande",
+        "Bryan",
+        "Mia",
+        "Cooper",
+        "Maisy"
+      ],
+      "notes": "Dessert Only",
+      "createdAt": "2026-11-11T23:48:56.990Z"
     }
   ],
   "dishes": [
@@ -809,7 +823,7 @@
     }
   ],
   "nextIds": {
-    "families": 21,
+    "families": 22,
     "dishes": 39,
     "gameCategories": 5,
     "gameSignups": 18,
