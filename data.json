@@ -227,6 +227,17 @@
       "notes": "Dessert Only",
       "createdAt": "2026-11-11T23:48:56.990Z",
       "updatedAt": "2026-11-12T00:40:18.190Z"
+    },
+    {
+      "id": 22,
+      "familyName": "Linnabary Family",
+      "attending": "maybe",
+      "members": [
+        "Todd",
+        "Michelle"
+      ],
+      "notes": "Dessert Only",
+      "createdAt": "2026-11-12T05:47:19.016Z"
     }
   ],
   "dishes": [
@@ -833,7 +844,7 @@
     }
   ],
   "nextIds": {
-    "families": 22,
+    "families": 23,
     "dishes": 40,
     "gameCategories": 5,
     "gameSignups": 18,
