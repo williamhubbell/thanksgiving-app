@@ -656,6 +656,18 @@
       "downvotes": [],
       "claimedBy": [],
       "createdAt": "2026-11-10T04:04:00.523Z"
+    },
+    {
+      "id": 39,
+      "category": "Dessert",
+      "itemName": "Apple Surprise",
+      "suggested": false,
+      "upvotes": [],
+      "downvotes": [],
+      "claimedBy": [
+        "Todd and Michelle"
+      ],
+      "createdAt": "2026-11-12T00:41:28.697Z"
     }
   ],
   "gameCategories": [
@@ -822,7 +834,7 @@
   ],
   "nextIds": {
     "families": 22,
-    "dishes": 39,
+    "dishes": 40,
     "gameCategories": 5,
     "gameSignups": 18,
     "photos": 11,
