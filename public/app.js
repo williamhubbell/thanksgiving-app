@@ -150,8 +150,11 @@
     }
     lastHeroNum = n;
     const maybeN = state.summary.totalHeadcountMaybe || 0;
+    const dessertN = state.summary.totalHeadcountDessert || 0;
     document.getElementById('heroSub').textContent =
-      `${state.summary.attendingFamiliesCount || 0} families confirmed` + (maybeN ? ` · ${maybeN} more maybe joining` : '');
+      `${state.summary.attendingFamiliesCount || 0} families confirmed` +
+      (maybeN ? ` · ${maybeN} more maybe joining` : '') +
+      (dessertN ? ` · ${dessertN} joining for dessert` : '');
   }
 
   // ---- Potluck voting countdown (shown on every tab, not just Potluck) ----
