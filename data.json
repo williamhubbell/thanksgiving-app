@@ -319,7 +319,9 @@
     },
     {
       "id": 5,
-      "claimedBy": null,
+      "claimedBy": [
+        "Leimomi"
+      ],
       "upvotes": [
         "Ivana",
         "Ani Shauck",
