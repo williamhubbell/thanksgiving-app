@@ -59,6 +59,7 @@
       <div class="summary-pill"><div class="num">${s.familiesCount || 0}</div><div class="lbl">Families</div></div>
       <div class="summary-pill"><div class="num">${s.totalHeadcountYes || 0}</div><div class="lbl">Confirmed</div></div>
       <div class="summary-pill"><div class="num">${s.totalHeadcountMaybe || 0}</div><div class="lbl">Maybe</div></div>
+      <div class="summary-pill"><div class="num">${s.totalHeadcountDessert || 0}</div><div class="lbl">Dessert only</div></div>
       <div class="summary-pill"><div class="num">${state.dishes.filter((d) => !(d.claimedBy && d.claimedBy.length)).length}</div><div class="lbl">Open dishes</div></div>
       <div class="summary-pill"><div class="num">${s.photosCount || 0}</div><div class="lbl">Photos</div></div>
     `;
