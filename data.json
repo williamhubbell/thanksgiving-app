@@ -228,6 +228,18 @@
       "notes": "Dessert Only",
       "createdAt": "2026-11-11T23:48:56.990Z",
       "updatedAt": "2026-11-14T17:10:51.482Z"
+    },
+    {
+      "id": 23,
+      "familyName": "Barer",
+      "attending": "yes",
+      "members": [
+        "Leimomi",
+        "Julian",
+        "Roman"
+      ],
+      "notes": "Roman - all nuts except macadamia & Brazil nuts. Nuts can be present, he just can’t consume them.",
+      "createdAt": "2026-11-14T17:24:54.208Z"
     }
   ],
   "dishes": [
@@ -827,7 +839,7 @@
     }
   ],
   "nextIds": {
-    "families": 23,
+    "families": 24,
     "dishes": 40,
     "gameCategories": 5,
     "gameSignups": 18,
