@@ -306,6 +306,7 @@ textarea { resize: vertical; min-height: 60px; }
 }
 .radio-row label.sel-yes.checked { background: var(--green); border-color: var(--green); color: #fff; }
 .radio-row label.sel-maybe.checked { background: var(--orange); border-color: var(--orange); color: #fff; }
+.radio-row label.sel-dessert.checked { background: var(--gold); border-color: var(--gold); color: #fff; }
 .radio-row label.sel-no.checked { background: var(--red); border-color: var(--red); color: #fff; }
 
 .btn {
@@ -390,6 +391,7 @@ button.btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .badge.claimed { background: #f3e6d8; color: var(--orange-dark); }
 .badge.yes { background: #e9f1e4; color: var(--green); }
 .badge.maybe { background: #fbe9d2; color: var(--orange-dark); }
+.badge.dessert { background: #f6ecd9; color: var(--gold-dark); }
 .badge.no { background: #f6e1dd; color: var(--red); }
 
 .summary-row {
