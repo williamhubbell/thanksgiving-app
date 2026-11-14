@@ -187,13 +187,14 @@
     {
       "id": 18,
       "familyName": "Mitchell",
-      "attending": "maybe",
+      "attending": "dessert",
       "members": [
         "Bobby",
         "Karen"
       ],
       "notes": "Will come for desert",
-      "createdAt": "2026-11-10T02:02:50.094Z"
+      "createdAt": "2026-11-10T02:02:50.094Z",
+      "updatedAt": "2026-11-14T17:10:52.983Z"
     },
     {
       "id": 19,
