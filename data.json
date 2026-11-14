@@ -219,14 +219,14 @@
     {
       "id": 21,
       "familyName": "Linnabary",
-      "attending": "yes",
+      "attending": "dessert",
       "members": [
         "Todd",
         "Michelle"
       ],
       "notes": "Dessert Only",
       "createdAt": "2026-11-11T23:48:56.990Z",
-      "updatedAt": "2026-11-12T00:40:18.190Z"
+      "updatedAt": "2026-11-14T17:10:51.482Z"
     }
   ],
   "dishes": [
