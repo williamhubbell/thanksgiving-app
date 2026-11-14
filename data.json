@@ -546,23 +546,6 @@
       "createdAt": "2026-10-23T16:06:29.143Z"
     },
     {
-      "id": 22,
-      "category": "Main",
-      "itemName": "Spinakopita",
-      "suggested": false,
-      "upvotes": [
-        "Debbie",
-        "Demetra",
-        "Pierce Keich",
-        "Dominic keich"
-      ],
-      "downvotes": [
-        "Ani Shauck"
-      ],
-      "claimedBy": null,
-      "createdAt": "2026-10-23T16:56:28.101Z"
-    },
-    {
       "id": 26,
       "category": "Side",
       "itemName": "Ceasar salad",
