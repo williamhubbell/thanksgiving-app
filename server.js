@@ -96,12 +96,14 @@ function scheduleNote(data) {
   return phase === 'voting' ? 'Voting closes and sign-ups open Nov 7.' : 'Sign-ups opened automatically on Nov 7.';
 }
 
-// Every person in an attending ("yes") family's member list — the pool of
-// names guests can predict against (first to arrive, best dressed, etc.).
+// Every person in an attending ("yes") or dessert-only family's member
+// list — the pool of names guests can predict against (first to arrive,
+// best dressed, etc.). Dessert-only folks are still physically there, so
+// they're fair game to predict on too.
 function attendeeOptions(data) {
   const names = new Set();
   data.families
-    .filter((f) => f.attending === 'yes')
+    .filter((f) => f.attending === 'yes' || f.attending === 'dessert')
     .forEach((f) => f.members.forEach((m) => {
       const name = (m || '').trim();
       if (name) names.add(name);
@@ -112,8 +114,10 @@ function attendeeOptions(data) {
 function publicState(data) {
   const attending = data.families.filter((f) => f.attending === 'yes');
   const maybe = data.families.filter((f) => f.attending === 'maybe');
+  const dessertOnly = data.families.filter((f) => f.attending === 'dessert');
   const totalHeadcountYes = attending.reduce((sum, f) => sum + f.members.length, 0);
   const totalHeadcountMaybe = maybe.reduce((sum, f) => sum + f.members.length, 0);
+  const totalHeadcountDessert = dessertOnly.reduce((sum, f) => sum + f.members.length, 0);
 
   const sortedDishes = [...data.dishes].sort((a, b) => dishScore(b) - dishScore(a) || a.id - b.id);
   const photos = [...(data.photos || [])].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -150,8 +154,10 @@ function publicState(data) {
     summary: {
       familiesCount: data.families.length,
       attendingFamiliesCount: attending.length,
+      dessertFamiliesCount: dessertOnly.length,
       totalHeadcountYes,
       totalHeadcountMaybe,
+      totalHeadcountDessert,
       photosCount: photos.length,
     },
   };
@@ -206,8 +212,8 @@ route('POST', '/api/families', async (req, res) => {
   const familyName = (body.familyName || '').trim();
   const attending = body.attending;
   if (!familyName) return sendJson(res, 400, { error: 'Family name is required' });
-  if (!['yes', 'no', 'maybe'].includes(attending)) {
-    return sendJson(res, 400, { error: 'Attending must be yes, no, or maybe' });
+  if (!['yes', 'no', 'maybe', 'dessert'].includes(attending)) {
+    return sendJson(res, 400, { error: 'Attending must be yes, no, maybe, or dessert' });
   }
   const members = Array.isArray(body.members)
     ? body.members.map((m) => String(m).trim()).filter(Boolean).slice(0, 30)
