@@ -392,7 +392,9 @@
     },
     {
       "id": 9,
-      "claimedBy": null,
+      "claimedBy": [
+        "Leimomi"
+      ],
       "upvotes": [
         "Niko",
         "Lauren Billing",
