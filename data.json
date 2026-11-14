@@ -629,16 +629,6 @@
       "createdAt": "2026-11-10T01:25:44.192Z"
     },
     {
-      "id": 36,
-      "category": "Dessert",
-      "itemName": "Ina Garten Brownie Pudding",
-      "suggested": false,
-      "upvotes": [],
-      "downvotes": [],
-      "claimedBy": [],
-      "createdAt": "2026-11-10T03:40:23.076Z"
-    },
-    {
       "id": 37,
       "category": "Drinks",
       "itemName": "Beer",
