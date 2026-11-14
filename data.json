@@ -272,7 +272,9 @@
     },
     {
       "id": 3,
-      "claimedBy": null,
+      "claimedBy": [
+        "Nicoleta and Pete"
+      ],
       "upvotes": [
         "Ivana",
         "Ani Shauck",
